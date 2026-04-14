@@ -1196,20 +1196,21 @@
     .jugadores-grid { grid-template-columns: 1fr; gap: 6px; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .stat-numero { font-size: 36px; }
+    .figura-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
   }
 
   /* ─── COUNTDOWN ─── */
   .countdown-box {
     background: var(--negro-card);
     border: 1px solid var(--negro-border);
-    padding: 16px 20px;
+    padding: 10px 14px;
     text-align: center;
-    min-width: 76px;
+    min-width: 56px;
   }
   .countdown-num {
     display: block;
     font-family: 'Oswald', sans-serif;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 700;
     color: var(--dorado);
     line-height: 1;
@@ -1645,7 +1646,7 @@
   <h2 class="section-title">Figura del<br><span>Partido</span></h2>
   <div class="section-rule"></div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;" class="figura-grid">
     <div>
       <p style="font-size:13px;color:var(--blanco-muted);line-height:1.7;margin-bottom:24px;">Votá al mejor jugador del último partido. Cada uno puede votar una sola vez.</p>
       <div style="position:relative;margin-bottom:12px;">
@@ -2967,13 +2968,32 @@ const db = firebase.database();
       });
       lista += '</div>';
 
-      container.innerHTML += '<div style="background:var(--negro-card);border:1px solid var(--negro-border);padding:20px;">'
+      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:20px;' + (m.month !== 3 ? 'display:none;' : '') + '">'
         + '<div style="font-family:\'Oswald\',sans-serif;font-size:13px;letter-spacing:0.15em;color:var(--dorado);font-weight:600;text-transform:uppercase;">' + MESES_NOMBRE[m.month] + ' ' + m.year + '</div>'
         + grid
         + lista
         + '</div>';
     });
+
+    // Botón ver más meses
+    var hayMas = Object.values(meses).some(function(m){ return m.month !== 3; });
+    if (hayMas) {
+      var btnDiv = document.createElement('div');
+      btnDiv.style.cssText = 'grid-column:1/-1;text-align:center;margin-top:4px;';
+      btnDiv.innerHTML = '<button id="btn-ver-meses" onclick="toggleMeses()" style="background:none;border:1px solid var(--negro-border);color:var(--blanco-muted);font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:0.2s;" onmouseover="this.style.borderColor=\'var(--dorado)\';this.style.color=\'var(--dorado)\'" onmouseout="this.style.borderColor=\'var(--negro-border)\';this.style.color=\'var(--blanco-muted)\'">Ver Mayo y Junio ↓</button>';
+      container.appendChild(btnDiv);
+    }
   })();
+
+  var mesesVisible = false;
+  function toggleMeses() {
+    mesesVisible = !mesesVisible;
+    document.querySelectorAll('.cal-mes').forEach(function(el) {
+      if (parseInt(el.dataset.mes) !== 3) el.style.display = mesesVisible ? 'block' : 'none';
+    });
+    var btn = document.getElementById('btn-ver-meses');
+    if (btn) btn.textContent = mesesVisible ? 'Ocultar ↑' : 'Ver Mayo y Junio ↓';
+  }
 
 </script>
 
@@ -3237,7 +3257,14 @@ function enviarNotificacion() {
     <p class="inst-title">📱 Guardala como app</p>
     <div class="inst-steps">
       <div class="inst-step">
-        <div class="inst-step-icon">⬆</div>
+      <div class="inst-step">
+        <div class="inst-step-icon">
+          <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 1V14" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6 5L10 1L14 5" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="1" y="9" width="18" height="12" rx="2" stroke="#c9a84c" stroke-width="1.8"/>
+          </svg>
+        </div>
         <div class="inst-step-label">Tocá compartir abajo</div>
       </div>
       <div class="inst-arrow">›</div>
