@@ -9,7 +9,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Zorzal Jr">
+<meta name="apple-mobile-web-app-title" content="Sporting Zorzal Jr">
 <link rel="apple-touch-icon" href="https://static.wixstatic.com/media/bda49d_f9966472445e4704b82a2a839b9b74fc~mv2.png">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -3121,6 +3121,200 @@ function enviarNotificacion() {
   from { opacity:0; transform:translateX(20px); }
   to   { opacity:1; transform:translateX(0); }
 }
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+#install-float {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7500;
+  width: calc(100% - 32px);
+  max-width: 420px;
+  background: #161616;
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 20px 20px 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+  animation: slideUp 0.4s ease;
+  display: none;
+}
+#install-float .inst-close {
+  position: absolute;
+  top: 10px; right: 14px;
+  background: none; border: none;
+  color: rgba(168,168,158,0.5);
+  font-size: 18px; cursor: pointer;
+  line-height: 1;
+}
+#install-float .inst-close:hover { color: var(--blanco-muted); }
+#install-float .inst-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--dorado);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+#install-float .inst-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+#install-float .inst-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+#install-float .inst-step-icon {
+  width: 44px; height: 44px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+#install-float .inst-step-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--blanco-muted);
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 60px;
+}
+#install-float .inst-arrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  color: rgba(201,168,76,0.4);
+  margin-bottom: 16px;
+}
+#install-float .inst-note {
+  font-size: 11px;
+  color: rgba(168,168,158,0.5);
+  text-align: center;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+#install-float .inst-btn-android {
+  width: 100%;
+  background: var(--dorado);
+  color: var(--negro);
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+#install-float .inst-btn-android:hover { background: var(--dorado-claro); }
 </style>
+
+<!-- BANNER FLOTANTE: INSTALAR COMO APP -->
+<div id="install-float">
+  <button class="inst-close" onclick="cerrarInstall()">×</button>
+
+  <!-- iOS version -->
+  <div id="inst-ios" style="display:none;">
+    <p class="inst-title">📱 Guardala como app</p>
+    <div class="inst-steps">
+      <div class="inst-step">
+        <div class="inst-step-icon">□↑</div>
+        <div class="inst-step-label">Tocá compartir</div>
+      </div>
+      <div class="inst-arrow">›</div>
+      <div class="inst-step">
+        <div class="inst-step-icon">＋</div>
+        <div class="inst-step-label">Agregar a inicio</div>
+      </div>
+      <div class="inst-arrow">›</div>
+      <div class="inst-step">
+        <div class="inst-step-icon">🏆</div>
+        <div class="inst-step-label">¡Listo!</div>
+      </div>
+    </div>
+    <p class="inst-note">Solo funciona desde Safari · Recibís notificaciones de convocatorias</p>
+  </div>
+
+  <!-- Android version -->
+  <div id="inst-android" style="display:none;">
+    <p class="inst-title">📱 Instalá la app</p>
+    <button class="inst-btn-android" onclick="instalarAndroid()">⬇ Instalar Zorzal Jr</button>
+    <p class="inst-note">Se instala directo, sin app store · Recibís notificaciones</p>
+  </div>
+</div>
+
+<script>
+// ─── INSTALL AS APP ───
+var deferredPrompt = null;
+var installDismissed = localStorage.getItem('zorzal_install_dismissed');
+
+// Android: capturar el evento nativo
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (!installDismissed) mostrarInstallAndroid();
+});
+
+function mostrarInstallAndroid() {
+  var float = document.getElementById('install-float');
+  var div = document.getElementById('inst-android');
+  if (float && div) {
+    div.style.display = 'block';
+    float.style.display = 'block';
+  }
+}
+
+function instalarAndroid() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(result) {
+    deferredPrompt = null;
+    cerrarInstall();
+    if (result.outcome === 'accepted') {
+      localStorage.setItem('zorzal_install_dismissed', '1');
+    }
+  });
+}
+
+// iOS: detectar Safari en iPhone sin estar instalada
+(function detectIOS() {
+  if (localStorage.getItem('zorzal_install_dismissed')) return;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  var isStandalone = window.navigator.standalone === true;
+  if (isIOS && isSafari && !isStandalone) {
+    // Mostrar después del splash (3.5s) y solo si no lo cerró antes
+    setTimeout(function() {
+      var float = document.getElementById('install-float');
+      var div = document.getElementById('inst-ios');
+      if (float && div) {
+        div.style.display = 'block';
+        float.style.display = 'block';
+      }
+    }, 3500);
+  }
+})();
+
+function cerrarInstall() {
+  var float = document.getElementById('install-float');
+  if (float) {
+    float.style.opacity = '0';
+    float.style.transform = 'translateX(-50%) translateY(10px)';
+    float.style.transition = 'all 0.3s ease';
+    setTimeout(function() { float.style.display = 'none'; }, 300);
+  }
+  // Recordar que lo cerró (no volver a mostrar en esta sesión)
+  sessionStorage.setItem('zorzal_install_dismissed', '1');
+}
+</script>
 </body>
 </html>
