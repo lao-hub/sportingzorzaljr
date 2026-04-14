@@ -11,9 +11,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Sporting Zorzal Jr">
 <meta name="color-scheme" content="dark">
-<style>html,body{background:#0a0a0a !important;}</style>
-<meta name="color-scheme" content="dark">
-<style>html,body{background:#0a0a0a !important;}</style>
+<style>
+  html { background: #0a0a0a; }
+  body { background: #0a0a0a !important; }
+</style>
 <link rel="apple-touch-icon" href="https://static.wixstatic.com/media/bda49d_f9966472445e4704b82a2a839b9b74fc~mv2.png">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -3185,6 +3186,7 @@ function enviarNotificacion() {
   background: rgba(201,168,76,0.08);
   border: 1px solid rgba(201,168,76,0.2);
   display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
   font-size: 20px;
 }
 #install-float .inst-step-label {
@@ -3236,7 +3238,10 @@ function enviarNotificacion() {
     <p class="inst-title">📱 Guardala como app</p>
     <div class="inst-steps">
       <div class="inst-step">
-        <div class="inst-step-icon">⬆</div>
+        <div class="inst-step-icon" style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0;flex-direction:column;gap:1px;">
+          <span style="font-size:16px;line-height:1;">↑</span>
+          <span style="font-size:8px;line-height:1;border:1px solid rgba(201,168,76,0.5);padding:0 3px;">□</span>
+        </div>
         <div class="inst-step-label">Tocá compartir abajo</div>
       </div>
       <div class="inst-arrow">›</div>
