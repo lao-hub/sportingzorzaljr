@@ -1513,10 +1513,7 @@
     <span></span><span></span><span></span>
   </button>
 
-  <!-- Botón de notificaciones -->
-  <button id="btn-notif" onclick="solicitarNotificaciones()" title="Activar notificaciones" style="display:none;background:none;border:1px solid rgba(201,168,76,0.3);color:var(--dorado);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.1em;padding:6px 12px;cursor:pointer;transition:0.2s;white-space:nowrap;" onmouseover="this.style.background='rgba(201,168,76,0.08)'" onmouseout="this.style.background='none'">
-    🔔 Activar avisos
-  </button>
+  <button id="btn-notif" onclick="solicitarNotificaciones()" title="Activar notificaciones" style="display:none;background:none;border:1px solid rgba(201,168,76,0.3);color:var(--dorado);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.1em;padding:6px 12px;cursor:pointer;transition:0.2s;white-space:nowrap;" onmouseover="this.style.background='rgba(201,168,76,0.08)'" onmouseout="this.style.background='none'">🔔 Activar avisos</button>
 </nav>
 
 <!-- MENÚ MÓVIL -->
@@ -2968,24 +2965,22 @@ const db = firebase.database();
     });
   })();
 
-<!-- PANEL DE ADMIN — oculto, se activa con ?admin en la URL -->
+</script>
+
+<!-- PANEL DE ADMIN — se activa con ?admin en la URL -->
 <div id="admin-panel" style="display:none;position:fixed;bottom:20px;right:20px;z-index:8000;width:320px;background:var(--negro-card);border:1px solid rgba(201,168,76,0.3);padding:20px;box-shadow:0 8px 32px rgba(0,0,0,0.6);">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
     <span style="font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.2em;color:var(--dorado);text-transform:uppercase;">Panel Admin</span>
     <button onclick="document.getElementById('admin-panel').style.display='none'" style="background:none;border:none;color:var(--blanco-muted);cursor:pointer;font-size:16px;">×</button>
   </div>
-
   <div style="margin-bottom:12px;">
     <label style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.15em;color:var(--blanco-muted);display:block;margin-bottom:6px;">TÍTULO</label>
     <input id="notif-titulo" type="text" value="⚽ Sporting Zorzal Jr" style="width:100%;background:var(--negro);border:1px solid var(--negro-border);color:var(--blanco);font-family:'Inter',sans-serif;font-size:13px;padding:8px 10px;outline:none;" onfocus="this.style.borderColor='var(--dorado)'" onblur="this.style.borderColor='var(--negro-border)'">
   </div>
-
   <div style="margin-bottom:16px;">
     <label style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.15em;color:var(--blanco-muted);display:block;margin-bottom:6px;">MENSAJE</label>
     <textarea id="notif-body" rows="3" placeholder="Ej: Sábado 15hs en Escobar C16. ¡Confirmá tu presencia!" style="width:100%;background:var(--negro);border:1px solid var(--negro-border);color:var(--blanco);font-family:'Inter',sans-serif;font-size:13px;padding:8px 10px;outline:none;resize:none;" onfocus="this.style.borderColor='var(--dorado)'" onblur="this.style.borderColor='var(--negro-border)'"></textarea>
   </div>
-
-  <!-- Templates rápidos -->
   <div style="margin-bottom:16px;">
     <p style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.15em;color:var(--blanco-muted);margin-bottom:8px;">TEMPLATES RÁPIDOS</p>
     <div style="display:flex;flex-direction:column;gap:6px;">
@@ -2994,12 +2989,8 @@ const db = firebase.database();
       <button onclick="setTemplate('cuota')" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15);color:var(--blanco-muted);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.08em;padding:7px 10px;cursor:pointer;text-align:left;">💰 Recordatorio cuota</button>
     </div>
   </div>
-
-  <div style="margin-bottom:10px;">
-    <p id="admin-subs" style="font-family:'Oswald',sans-serif;font-size:11px;color:var(--blanco-muted);letter-spacing:0.1em;">Cargando suscriptores...</p>
-  </div>
-
-  <button onclick="enviarNotificacion()" style="width:100%;background:var(--dorado);color:var(--negro);font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;padding:12px;border:none;cursor:pointer;font-weight:600;transition:background 0.2s;" onmouseover="this.style.background='var(--dorado-claro)'" onmouseout="this.style.background='var(--dorado)'">Enviar a todos</button>
+  <p id="admin-subs" style="font-family:'Oswald',sans-serif;font-size:11px;color:var(--blanco-muted);letter-spacing:0.1em;margin-bottom:10px;">Cargando suscriptores...</p>
+  <button onclick="enviarNotificacion()" style="width:100%;background:var(--dorado);color:var(--negro);font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;padding:12px;border:none;cursor:pointer;font-weight:600;" onmouseover="this.style.background='var(--dorado-claro)'" onmouseout="this.style.background='var(--dorado)'">Enviar a todos</button>
   <p id="admin-msg" style="font-size:11px;text-align:center;margin-top:8px;font-family:'Oswald',sans-serif;letter-spacing:0.1em;min-height:16px;color:var(--dorado);"></p>
 </div>
 
@@ -3008,40 +2999,33 @@ const db = firebase.database();
 const VAPID_KEY = 'BCfU_GvjmBz5PEczPMRwqdkU085M9IfhaXi4auo2gtC4eYg9nVqGXAcA8vVWYPX-kCi44hO4e5UnYJXHd0p8U50';
 let messaging = null;
 
-// Registrar service worker y arrancar messaging
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js')
     .then(function(reg) {
-      console.log('SW registrado:', reg.scope);
-      // Init messaging solo si está disponible
       try {
         messaging = firebase.messaging();
-        messaging.useServiceWorker && messaging.useServiceWorker(reg);
         iniciarNotificaciones();
-      } catch(e) {
-        console.log('Messaging no disponible:', e);
-      }
+        // Notificaciones en primer plano
+        messaging.onMessage(function(payload) {
+          const { title, body } = payload.notification || {};
+          mostrarBannerNotif(title, body);
+        });
+      } catch(e) { console.log('Messaging no disponible:', e); }
     })
     .catch(function(err) { console.log('SW error:', err); });
 }
 
 function iniciarNotificaciones() {
-  // Si ya tiene permiso, registrar token silenciosamente
   if (Notification.permission === 'granted') {
     registrarToken();
-    // Mostrar botón solo si nunca se suscribió en este dispositivo
-    if (!localStorage.getItem('zorzal_notif_ok')) {
-      mostrarBotonNotif();
-    }
   } else if (Notification.permission === 'default') {
-    // Mostrar botón para que pueda suscribirse
-    setTimeout(mostrarBotonNotif, 3500); // esperar que pase el splash
+    setTimeout(mostrarBotonNotif, 3500);
   }
 }
 
 function mostrarBotonNotif() {
   const btn = document.getElementById('btn-notif');
-  if (btn) btn.style.display = 'inline-block';
+  if (btn && !localStorage.getItem('zorzal_notif_ok')) btn.style.display = 'inline-block';
 }
 
 function solicitarNotificaciones() {
@@ -3062,14 +3046,12 @@ function solicitarNotificaciones() {
       }
     })
     .catch(function(err) {
-      console.log('Error token:', err);
       alert('No se pudo activar. Verificá que el navegador permita notificaciones.');
     });
 }
 
 function guardarToken(token) {
   if (!token) return;
-  // Guardar token en Firebase con timestamp
   db.ref('push_tokens/' + btoa(token).replace(/[^a-zA-Z0-9]/g,'').substring(0,40)).set({
     token: token,
     ua: navigator.userAgent.substring(0,80),
@@ -3081,58 +3063,35 @@ function registrarToken() {
   if (!messaging) return;
   messaging.getToken({ vapidKey: VAPID_KEY })
     .then(function(token) { if (token) guardarToken(token); })
-    .catch(function(e) { console.log('Token silencioso fallido:', e); });
-}
-
-// Notificaciones en primer plano (página abierta)
-if (messaging) {
-  messaging.onMessage(function(payload) {
-    const { title, body } = payload.notification || {};
-    // Mostrar banner inline en la página
-    mostrarBannerNotif(title, body);
-  });
+    .catch(function(e) {});
 }
 
 function mostrarBannerNotif(title, body) {
   const banner = document.createElement('div');
-  banner.style.cssText = 'position:fixed;top:80px;right:20px;z-index:7000;background:var(--negro-card);border:1px solid rgba(201,168,76,0.4);padding:16px 20px;max-width:300px;animation:slideIn 0.3s ease;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
+  banner.style.cssText = 'position:fixed;top:80px;right:20px;z-index:7000;background:var(--negro-card);border:1px solid rgba(201,168,76,0.4);padding:16px 20px;max-width:300px;box-shadow:0 4px 20px rgba(0,0,0,0.5);animation:slideIn 0.3s ease;';
   banner.innerHTML = '<div style="font-family:\'Oswald\',sans-serif;font-size:13px;color:var(--dorado);margin-bottom:4px;">' + (title||'Zorzal Jr') + '</div>'
     + '<div style="font-size:12px;color:var(--blanco-muted);line-height:1.5;">' + (body||'') + '</div>'
     + '<button onclick="this.parentNode.remove()" style="position:absolute;top:8px;right:10px;background:none;border:none;color:var(--blanco-muted);cursor:pointer;font-size:14px;">×</button>';
   document.body.appendChild(banner);
-  setTimeout(function(){ banner.remove(); }, 6000);
+  setTimeout(function(){ if (banner.parentNode) banner.remove(); }, 6000);
 }
 
-// ─── ADMIN PANEL ───
-// Activar con ?admin en la URL
+// ─── ADMIN ───
 if (window.location.search.includes('admin')) {
   setTimeout(function(){
     document.getElementById('admin-panel').style.display = 'block';
-    cargarConteoSubs();
-  }, 100);
-}
-
-function cargarConteoSubs() {
-  db.ref('push_tokens').once('value').then(function(snap) {
-    const count = snap.val() ? Object.keys(snap.val()).length : 0;
-    const el = document.getElementById('admin-subs');
-    if (el) el.textContent = count + ' dispositivo' + (count !== 1 ? 's' : '') + ' suscripto' + (count !== 1 ? 's' : '');
-  });
+    db.ref('push_tokens').once('value').then(function(snap) {
+      const count = snap.val() ? Object.keys(snap.val()).length : 0;
+      const el = document.getElementById('admin-subs');
+      if (el) el.textContent = count + ' dispositivo' + (count!==1?'s':'') + ' suscripto' + (count!==1?'s':'');
+    });
+  }, 500);
 }
 
 const TEMPLATES = {
-  convocatoria: {
-    titulo: '⚽ Sporting Zorzal Jr — Convocatoria',
-    body: 'Partido este sábado. ¡Entrá a la página y confirmá si vas!'
-  },
-  resultado: {
-    titulo: '🏆 Resultado del partido',
-    body: '¡Mirá cómo quedó y votá a la figura del partido!'
-  },
-  cuota: {
-    titulo: '💰 Recordatorio — Cuota pendiente',
-    body: 'No te olvides de estar al día con la cuota del mes. ¡Gracias!'
-  }
+  convocatoria: { titulo: '⚽ Sporting Zorzal Jr — Convocatoria', body: 'Partido este sábado. ¡Entrá a la página y confirmá si vas!' },
+  resultado:    { titulo: '🏆 Resultado del partido', body: '¡Mirá cómo quedó y votá a la figura del partido!' },
+  cuota:        { titulo: '💰 Recordatorio — Cuota pendiente', body: 'No te olvides de estar al día con la cuota del mes. ¡Gracias!' }
 };
 
 function setTemplate(key) {
@@ -3146,25 +3105,14 @@ function enviarNotificacion() {
   const titulo = document.getElementById('notif-titulo').value.trim();
   const body   = document.getElementById('notif-body').value.trim();
   const msg    = document.getElementById('admin-msg');
-
   if (!titulo || !body) { msg.textContent = 'Completá título y mensaje.'; msg.style.color = '#e06060'; return; }
-
-  // Guardar en Firebase — el service worker la distribuye
-  // En producción esto se haría con Firebase Cloud Functions
-  // Por ahora guardamos en /notificaciones para que cada SW la detecte
-  db.ref('notificaciones').push({
-    titulo: titulo,
-    body: body,
-    ts: Date.now(),
-    enviado: false
-  }).then(function() {
-    msg.textContent = '✓ Notificación guardada en Firebase';
-    msg.style.color = '#5dbd7d';
-    setTimeout(function(){ msg.textContent = ''; }, 4000);
-  }).catch(function(e) {
-    msg.textContent = 'Error: ' + e.message;
-    msg.style.color = '#e06060';
-  });
+  db.ref('notificaciones').push({ titulo, body, ts: Date.now(), enviado: false })
+    .then(function() {
+      msg.textContent = '✓ Guardado — corré node enviar.js para distribuir';
+      msg.style.color = '#5dbd7d';
+      setTimeout(function(){ msg.textContent = ''; }, 5000);
+    })
+    .catch(function(e) { msg.textContent = 'Error: ' + e.message; msg.style.color = '#e06060'; });
 }
 </script>
 
