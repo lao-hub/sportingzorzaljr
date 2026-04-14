@@ -3157,93 +3157,80 @@ function enviarNotificacion() {
 }
 #install-float {
   position: fixed;
-  bottom: 24px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 7500;
   width: calc(100% - 32px);
-  max-width: 420px;
-  background: #161616;
-  border: 1px solid rgba(201,168,76,0.4);
-  padding: 20px 20px 16px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.7);
+  max-width: 360px;
+  background: #1a1a1a;
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 12px 40px 12px 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
   animation: slideUp 0.4s ease;
   display: none;
+  border-radius: 4px;
 }
 #install-float .inst-close {
   position: absolute;
-  top: 10px; right: 14px;
+  top: 50%; right: 12px;
+  transform: translateY(-50%);
   background: none; border: none;
-  color: rgba(168,168,158,0.5);
-  font-size: 18px; cursor: pointer;
-  line-height: 1;
+  color: rgba(168,168,158,0.4);
+  font-size: 16px; cursor: pointer;
+  line-height: 1; padding: 4px;
 }
 #install-float .inst-close:hover { color: var(--blanco-muted); }
 #install-float .inst-title {
   font-family: 'Oswald', sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.2em;
+  font-size: 11px;
+  letter-spacing: 0.15em;
   color: var(--dorado);
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 }
 #install-float .inst-steps {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
 }
 #install-float .inst-step {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 #install-float .inst-step-icon {
-  width: 44px; height: 44px;
-  background: rgba(201,168,76,0.08);
-  border: 1px solid rgba(201,168,76,0.2);
+  width: 22px; height: 22px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 #install-float .inst-step-label {
   font-family: 'Oswald', sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  letter-spacing: 0.05em;
   color: var(--blanco-muted);
-  text-transform: uppercase;
-  text-align: center;
-  max-width: 60px;
+  white-space: nowrap;
 }
 #install-float .inst-arrow {
-  font-family: 'Oswald', sans-serif;
-  font-size: 14px;
+  font-size: 10px;
   color: rgba(201,168,76,0.4);
-  margin-bottom: 16px;
 }
-#install-float .inst-note {
-  font-size: 11px;
-  color: rgba(168,168,158,0.5);
-  text-align: center;
-  letter-spacing: 0.05em;
-  line-height: 1.6;
-}
+#install-float .inst-note { display: none; }
 #install-float .inst-btn-android {
-  width: 100%;
   background: var(--dorado);
   color: var(--negro);
   font-family: 'Oswald', sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.15em;
+  font-size: 12px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 12px;
+  padding: 8px 16px;
   border: none;
   cursor: pointer;
   font-weight: 600;
-  margin-bottom: 10px;
   transition: background 0.2s;
+  border-radius: 2px;
 }
 #install-float .inst-btn-android:hover { background: var(--dorado-claro); }
 </style>
@@ -3254,43 +3241,35 @@ function enviarNotificacion() {
 
   <!-- iOS version -->
   <div id="inst-ios" style="display:none;">
-    <p class="inst-title">📱 Guardala como app</p>
+    <p class="inst-title">📱 Agregá la app</p>
     <div class="inst-steps">
       <div class="inst-step">
-      <div class="inst-step">
         <div class="inst-step-icon">
-          <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 1V14" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M6 5L10 1L14 5" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="1" y="9" width="18" height="12" rx="2" stroke="#c9a84c" stroke-width="1.8"/>
+          <svg width="14" height="16" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 1V14" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 5L10 1L14 5" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="1" y="9" width="18" height="12" rx="2" stroke="#c9a84c" stroke-width="2"/>
           </svg>
         </div>
-        <div class="inst-step-label">Tocá compartir abajo</div>
+        <div class="inst-step-label">Compartir</div>
       </div>
       <div class="inst-arrow">›</div>
       <div class="inst-step">
-        <div class="inst-step-icon">↑</div>
-        <div class="inst-step-label">Scrolleá arriba</div>
+        <div class="inst-step-icon" style="font-size:13px;">＋</div>
+        <div class="inst-step-label">Agregar</div>
       </div>
       <div class="inst-arrow">›</div>
       <div class="inst-step">
-        <div class="inst-step-icon">＋</div>
-        <div class="inst-step-label">Agregar a pantalla</div>
-      </div>
-      <div class="inst-arrow">›</div>
-      <div class="inst-step">
-        <div class="inst-step-icon">🏆</div>
+        <div class="inst-step-icon" style="font-size:13px;">🏆</div>
         <div class="inst-step-label">¡Listo!</div>
       </div>
     </div>
-    <p class="inst-note">Solo funciona desde Safari · Recibís notificaciones de convocatorias</p>
   </div>
 
   <!-- Android version -->
   <div id="inst-android" style="display:none;">
     <p class="inst-title">📱 Instalá la app</p>
-    <button class="inst-btn-android" onclick="instalarAndroid()">⬇ Instalar Zorzal Jr</button>
-    <p class="inst-note">Se instala directo, sin app store · Recibís notificaciones</p>
+    <button class="inst-btn-android" onclick="instalarAndroid()">⬇ Instalar</button>
   </div>
 </div>
 
