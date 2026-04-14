@@ -5,16 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sporting Zorzal Jr — Página Oficial</title>
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#c9a84c">
+<meta name="theme-color" content="#0a0a0a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Sporting Zorzal Jr">
 <meta name="color-scheme" content="dark">
-<style>
-  html { background: #0a0a0a; }
-  body { background: #0a0a0a !important; }
-</style>
+<style>html{background:#0a0a0a;}body{background:#0a0a0a !important;}</style>
 <link rel="apple-touch-icon" href="https://static.wixstatic.com/media/bda49d_f9966472445e4704b82a2a839b9b74fc~mv2.png">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -3186,7 +3183,6 @@ function enviarNotificacion() {
   background: rgba(201,168,76,0.08);
   border: 1px solid rgba(201,168,76,0.2);
   display: flex; align-items: center; justify-content: center;
-  flex-direction: column;
   font-size: 20px;
 }
 #install-float .inst-step-label {
@@ -3238,9 +3234,12 @@ function enviarNotificacion() {
     <p class="inst-title">📱 Guardala como app</p>
     <div class="inst-steps">
       <div class="inst-step">
-        <div class="inst-step-icon" style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0;flex-direction:column;gap:1px;">
-          <span style="font-size:16px;line-height:1;">↑</span>
-          <span style="font-size:8px;line-height:1;border:1px solid rgba(201,168,76,0.5);padding:0 3px;">□</span>
+        <div class="inst-step-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 1V14" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M7 5L11 1L15 5" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 9H4C3.45 9 3 9.45 3 10V19C3 19.55 3.45 20 4 20H18C18.55 20 19 19.55 19 19V10C19 9.45 18.55 9 18 9H15" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
         </div>
         <div class="inst-step-label">Tocá compartir abajo</div>
       </div>
