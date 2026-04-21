@@ -1894,10 +1894,10 @@
   <!-- Panel 2026 -->
   <div id="panel-2026">
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-numero">0</div><div class="stat-label">Partidos jugados</div></div>
+      <div class="stat-card"><div class="stat-numero">1</div><div class="stat-label">Partidos jugados</div></div>
       <div class="stat-card"><div class="stat-numero">0</div><div class="stat-label">Victorias</div></div>
-      <div class="stat-card"><div class="stat-numero">0</div><div class="stat-label">Goles a favor</div></div>
-      <div class="stat-card"><div class="stat-numero">0</div><div class="stat-label">Goles en contra</div></div>
+      <div class="stat-card"><div class="stat-numero">2</div><div class="stat-label">Goles a favor</div></div>
+      <div class="stat-card"><div class="stat-numero">6</div><div class="stat-label">Goles en contra</div></div>
     </div>
 
     <div class="tabla-posiciones" style="margin-top:28px;">
@@ -3056,7 +3056,20 @@ const db = firebase.database();
 
 </script>
 
-<!-- PANEL DE ADMIN — se activa con ?admin en la URL -->
+<!-- BOTÓN VOLVER ARRIBA + OPINAR -->
+<button id="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba" style="display:none;position:fixed;bottom:76px;right:20px;z-index:6000;width:40px;height:40px;background:var(--negro-card);border:1px solid var(--negro-border);color:var(--blanco-muted);font-size:16px;cursor:pointer;transition:0.2s;border-radius:2px;" onmouseover="this.style.borderColor='var(--dorado)';this.style.color='var(--dorado)'" onmouseout="this.style.borderColor='var(--negro-border)';this.style.color='var(--blanco-muted)'">↑</button>
+
+<button id="btn-opinar" onclick="document.getElementById('comentarios').scrollIntoView({behavior:'smooth'})" title="Opinar" style="display:none;position:fixed;bottom:28px;right:20px;z-index:6000;background:var(--negro-card);border:1px solid rgba(201,168,76,0.3);color:var(--dorado);font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.12em;padding:8px 14px;cursor:pointer;transition:0.2s;border-radius:2px;white-space:nowrap;" onmouseover="this.style.background='rgba(201,168,76,0.08)'" onmouseout="this.style.background='var(--negro-card)'">💬 Opinar</button>
+
+<script>
+window.addEventListener('scroll', function() {
+  var show = window.scrollY > 400;
+  var top = document.getElementById('btn-top');
+  var op  = document.getElementById('btn-opinar');
+  if (top) top.style.display = show ? 'block' : 'none';
+  if (op)  op.style.display  = show ? 'block' : 'none';
+}, { passive: true });
+</script>
 <div id="admin-panel" style="display:none;position:fixed;bottom:20px;right:20px;z-index:8000;width:320px;background:var(--negro-card);border:1px solid rgba(201,168,76,0.3);padding:20px;box-shadow:0 8px 32px rgba(0,0,0,0.6);">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
     <span style="font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.2em;color:var(--dorado);text-transform:uppercase;">Panel Admin</span>
