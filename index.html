@@ -278,6 +278,7 @@
     position: relative;
     max-width: 780px;
     margin: 8px auto 0;
+    overflow: hidden;
   }
 
   .hero-photo-frame::before,
@@ -1557,6 +1558,23 @@
         alt="Equipo Sporting Zorzal Jr"
         onerror="this.style.background='#161616';this.style.minHeight='300px';"
       >
+      <!-- Overlay cinematográfico -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.75) 0%,rgba(10,10,10,0.1) 40%,transparent 100%);pointer-events:none;z-index:1;"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.3) 0%,transparent 30%,transparent 70%,rgba(10,10,10,0.3) 100%);pointer-events:none;z-index:1;"></div>
+      <!-- Texto en la foto -->
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;z-index:2;">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.25em;color:var(--dorado);text-transform:uppercase;margin-bottom:4px;opacity:0.9;">Apertura 2026</p>
+            <p style="font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:0.1em;color:var(--blanco);text-transform:uppercase;line-height:1;">Sporting Zorzal Jr</p>
+          </div>
+          <div style="text-align:right;">
+            <p style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.15em;color:rgba(201,168,76,0.7);text-transform:uppercase;">Escobar · Buenos Aires</p>
+          </div>
+        </div>
+      </div>
+      <!-- Línea dorada inferior -->
+      <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--dorado),transparent);z-index:2;opacity:0.6;"></div>
     </div>
 
     <div style="margin-top:36px;display:flex;justify-content:center;gap:0;flex-wrap:wrap;">
@@ -1845,7 +1863,7 @@
   <!-- CALENDARIO VISUAL -->
   <div style="margin-top:48px;" class="reveal">
     <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.2em;color:var(--dorado);text-transform:uppercase;margin-bottom:20px;">Calendario Apertura 2026</p>
-    <div id="cal-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;"></div>
+    <div id="cal-container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;"></div>
   </div>
 </section>
 
@@ -2051,7 +2069,7 @@
     </div>
     <div class="miembro-card">
       <div class="miembro-avatar">SD</div>
-      <div class="miembro-nombre">Sebita De Rosas</div>
+      <div class="miembro-nombre">Seba De Rosa</div>
       <div class="miembro-rol">Organizador de Salidas</div>
     </div>
     <div class="miembro-card">
@@ -3030,8 +3048,8 @@ const db = firebase.database();
       });
       lista += '</div>';
 
-      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:20px;' + (m.month !== 4 ? 'display:none;' : '') + '">'
-        + '<div style="font-family:\'Oswald\',sans-serif;font-size:13px;letter-spacing:0.15em;color:var(--dorado);font-weight:600;text-transform:uppercase;">' + MESES_NOMBRE[m.month] + ' ' + m.year + (m.month === 3 ? ' <span style="font-size:10px;color:var(--blanco-muted);letter-spacing:0.1em;">— Mes pasado</span>' : '') + '</div>'
+      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:28px;' + (m.month !== 4 ? 'display:none;' : '') + '">'
+        + '<div style="font-family:\'Oswald\',sans-serif;font-size:14px;letter-spacing:0.2em;color:var(--dorado);font-weight:600;text-transform:uppercase;margin-bottom:16px;">' + MESES_NOMBRE[m.month] + ' ' + m.year + (m.month === 3 ? ' <span style="font-size:10px;color:rgba(168,168,158,0.5);letter-spacing:0.1em;">— MES PASADO</span>' : '') + '</div>'
         + grid
         + lista
         + '</div>';
