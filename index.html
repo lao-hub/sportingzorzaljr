@@ -1552,7 +1552,7 @@
     <div class="hero-photo-frame">
       <img
         class="hero-photo"
-        src="https://static.wixstatic.com/media/bda49d_8beae07a18064d5a9b2d242db336e893~mv2.jpg"
+        src="https://i.imgur.com/1PHWi2G.jpeg"
         alt="Equipo Sporting Zorzal Jr"
         onerror="this.style.background='#161616';this.style.minHeight='300px';"
       >
@@ -1739,7 +1739,7 @@
   <div class="partidos-list" style="margin-bottom:32px;">
     <div class="partido-card" style="border-color:rgba(193,59,59,0.25);background:rgba(193,59,59,0.03);">
       <div class="partido-equipo local">Bayern Muñiz</div>
-      <div class="partido-score">3 — 5</div>
+      <div class="partido-score">2 — 6</div>
       <div class="partido-equipo visitante">Sporting Zorzal Jr</div>
       <div class="partido-meta">
         <span class="partido-fecha">Sáb 25/4 — F5</span>
@@ -1780,7 +1780,7 @@
     <div class="partidos-list">
       <div class="partido-card" style="border-color:rgba(193,59,59,0.2);background:rgba(193,59,59,0.02);">
         <div class="partido-equipo local">Sporting Zorzal Jr</div>
-        <div class="partido-score" style="font-size:14px;">3 — 6</div>
+        <div class="partido-score" style="font-size:14px;">2 — 6</div>
         <div class="partido-equipo visitante">Ezpeleta</div>
         <div class="partido-meta"><span class="partido-fecha">18/4 F4 — 16hs C16</span><span class="partido-badge" style="background:rgba(193,59,59,0.15);color:#e06060;border-color:rgba(193,59,59,0.3);">Derrota</span></div>
       </div>
@@ -2958,14 +2958,14 @@ const db = firebase.database();
   // ─── CALENDARIO ───
   (function buildCalendar() {
     const partidos = [
-      { fecha: new Date(2026,3,18), rival: 'Ezpeleta',               resultado: null },
-      { fecha: new Date(2026,3,25), rival: 'Manchester Unitingale',   resultado: null },
-      { fecha: new Date(2026,4,2),  rival: 'C.E.P',                  resultado: null },
+      { fecha: new Date(2026,3,18), rival: 'Ezpeleta',               resultado: '2-6 ✗' },
+      { fecha: new Date(2026,3,25), rival: 'Bayern Muñiz',            resultado: '5-3 ✓' },
       { fecha: new Date(2026,4,9),  rival: 'Mercaderes de la Muerte', resultado: null },
       { fecha: new Date(2026,4,16), rival: 'Brujas FC',               resultado: null },
       { fecha: new Date(2026,4,23), rival: 'Deportivo Saprissa',      resultado: null },
       { fecha: new Date(2026,4,30), rival: 'Schooners FC',            resultado: null },
       { fecha: new Date(2026,5,6),  rival: 'Deportivo Cubilla',       resultado: null },
+      { fecha: new Date(2026,5,13), rival: 'C.E.P',                  resultado: null },
       { fecha: new Date(2026,5,20), rival: 'Sin Potrero',             resultado: null },
       { fecha: new Date(2026,5,27), rival: 'Cruz del Sur',            resultado: null },
     ];
@@ -3029,19 +3029,19 @@ const db = firebase.database();
       });
       lista += '</div>';
 
-      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:20px;' + (m.month !== 3 ? 'display:none;' : '') + '">'
-        + '<div style="font-family:\'Oswald\',sans-serif;font-size:13px;letter-spacing:0.15em;color:var(--dorado);font-weight:600;text-transform:uppercase;">' + MESES_NOMBRE[m.month] + ' ' + m.year + '</div>'
+      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:20px;' + (m.month !== 4 ? 'display:none;' : '') + '">'
+        + '<div style="font-family:\'Oswald\',sans-serif;font-size:13px;letter-spacing:0.15em;color:var(--dorado);font-weight:600;text-transform:uppercase;">' + MESES_NOMBRE[m.month] + ' ' + m.year + (m.month === 3 ? ' <span style="font-size:10px;color:var(--blanco-muted);letter-spacing:0.1em;">— Mes pasado</span>' : '') + '</div>'
         + grid
         + lista
         + '</div>';
     });
 
     // Botón ver más meses
-    var hayMas = Object.values(meses).some(function(m){ return m.month !== 3; });
+    var hayMas = Object.values(meses).some(function(m){ return m.month !== 4; });
     if (hayMas) {
       var btnDiv = document.createElement('div');
       btnDiv.style.cssText = 'grid-column:1/-1;text-align:center;margin-top:4px;';
-      btnDiv.innerHTML = '<button id="btn-ver-meses" onclick="toggleMeses()" style="background:none;border:1px solid var(--negro-border);color:var(--blanco-muted);font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:0.2s;" onmouseover="this.style.borderColor=\'var(--dorado)\';this.style.color=\'var(--dorado)\'" onmouseout="this.style.borderColor=\'var(--negro-border)\';this.style.color=\'var(--blanco-muted)\'">Ver Mayo y Junio ↓</button>';
+      btnDiv.innerHTML = '<button id="btn-ver-meses" onclick="toggleMeses()" style="background:none;border:1px solid var(--negro-border);color:var(--blanco-muted);font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:0.2s;" onmouseover="this.style.borderColor=\'var(--dorado)\';this.style.color=\'var(--dorado)\'" onmouseout="this.style.borderColor=\'var(--negro-border)\';this.style.color=\'var(--blanco-muted)\'">Ver Abril y Junio ↓</button>';
       container.appendChild(btnDiv);
     }
   })();
@@ -3050,10 +3050,10 @@ const db = firebase.database();
   function toggleMeses() {
     mesesVisible = !mesesVisible;
     document.querySelectorAll('.cal-mes').forEach(function(el) {
-      if (parseInt(el.dataset.mes) !== 3) el.style.display = mesesVisible ? 'block' : 'none';
+      if (parseInt(el.dataset.mes) !== 4) el.style.display = mesesVisible ? 'block' : 'none';
     });
     var btn = document.getElementById('btn-ver-meses');
-    if (btn) btn.textContent = mesesVisible ? 'Ocultar ↑' : 'Ver Mayo y Junio ↓';
+    if (btn) btn.textContent = mesesVisible ? 'Ocultar ↑' : 'Ver Abril y Junio ↓';
   }
 
 </script>
