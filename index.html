@@ -1603,19 +1603,19 @@
       <div style="text-align:center;">
         <div style="font-family:'Oswald',sans-serif;font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--dorado);letter-spacing:0.1em;line-height:1;">VS</div>
         <div style="margin-top:8px;">
-          <div style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.12em;color:var(--blanco-muted);">Sáb 9/5/2026</div>
+          <div style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.12em;color:var(--blanco-muted);">Sáb 16/5/2026</div>
           <div style="display:flex;gap:16px;justify-content:center;margin-top:6px;flex-wrap:wrap;">
             <span style="font-size:12px;color:var(--blanco-muted);font-family:'Oswald',sans-serif;">🕐 Citación: <strong style="color:var(--blanco);">13:00 hs</strong></span>
             <span style="font-size:12px;color:var(--blanco-muted);font-family:'Oswald',sans-serif;">⚽ Partido: <strong style="color:var(--blanco);">14:00 hs</strong></span>
           </div>
           <div style="margin-top:6px;">
-            <span style="font-size:11px;color:var(--blanco-muted);font-family:'Oswald',sans-serif;letter-spacing:0.1em;">📍 Escobar — Cancha 11</span>
+            <span style="font-size:11px;color:var(--blanco-muted);font-family:'Oswald',sans-serif;letter-spacing:0.1em;">📍 Escobar — Cancha 13</span>
           </div>
         </div>
       </div>
       <!-- Visitante -->
       <div style="text-align:left;">
-        <div style="font-family:'Oswald',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:700;letter-spacing:0.06em;color:var(--blanco-muted);">MERCADERES DE LA MUERTE</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:700;letter-spacing:0.06em;color:var(--blanco-muted);">BRUJAS FC</div>
         <div style="font-size:12px;color:var(--blanco-muted);letter-spacing:0.15em;font-family:'Oswald',sans-serif;margin-top:4px;">VISITANTE</div>
       </div>
     </div>
@@ -1773,18 +1773,18 @@
     <div class="partido-card" style="border-color:rgba(201,168,76,0.2);">
       <div class="partido-equipo local">Sporting Zorzal Jr</div>
       <div class="partido-score" style="color:var(--blanco-muted);font-size:16px;letter-spacing:0.1em;">VS</div>
-      <div class="partido-equipo visitante">Mercaderes de la Muerte</div>
+      <div class="partido-equipo visitante">Brujas FC</div>
       <div class="partido-meta">
-        <span class="partido-fecha">9/5 — 14hs C11</span>
+        <span class="partido-fecha">16/5 — 14hs C13</span>
         <span class="partido-badge badge-proximo">Próximo</span>
       </div>
     </div>
     <div class="partido-card" style="border-color:rgba(201,168,76,0.1);">
-      <div class="partido-equipo local">Brujas FC</div>
+      <div class="partido-equipo local">Deportivo Saprissa</div>
       <div class="partido-score" style="color:var(--blanco-muted);font-size:16px;letter-spacing:0.1em;">VS</div>
       <div class="partido-equipo visitante">Sporting Zorzal Jr</div>
       <div class="partido-meta">
-        <span class="partido-fecha">16/5 — 14hs C13</span>
+        <span class="partido-fecha">23/5 — 16hs C13</span>
         <span class="partido-badge badge-proximo">Próximo</span>
       </div>
     </div>
@@ -1809,11 +1809,11 @@
         <div class="partido-equipo visitante">Sporting Zorzal Jr</div>
         <div class="partido-meta"><span class="partido-fecha">25/4 F5 — 14hs C11</span><span class="partido-badge badge-win">Victoria</span></div>
       </div>
-      <div class="partido-card">
+      <div class="partido-card" style="border-color:rgba(201,168,76,0.08);opacity:0.7;">
         <div class="partido-equipo local">Sporting Zorzal Jr</div>
         <div class="partido-score" style="color:var(--blanco-muted);font-size:14px;">VS</div>
         <div class="partido-equipo visitante">Mercaderes de la Muerte</div>
-        <div class="partido-meta"><span class="partido-fecha">9/5 F7 — 14hs C11</span><span class="partido-badge badge-proximo">Próximo</span></div>
+        <div class="partido-meta"><span class="partido-fecha">4/7 F7 — Reprogramado</span><span class="partido-badge" style="background:rgba(200,200,200,0.06);color:var(--blanco-muted);">Reprogramado</span></div>
       </div>
       <div class="partido-card">
         <div class="partido-equipo local">Brujas FC</div>
@@ -2565,10 +2565,9 @@
   });
 
   // ─── CONTADOR REGRESIVO ───
-  // 18 Abril 2026 15:00hs Argentina (UTC-3) = 18:00 UTC
-  // 9 Mayo 2026 14:00hs Argentina (UTC-3) = 17:00 UTC
-  const PARTIDO_FECHA = new Date(Date.UTC(2026, 4, 9, 17, 0, 0));
-  const PARTIDO_ID = 'partido_2026_05_09';
+  // 16 Mayo 2026 14:00hs Argentina (UTC-3) = 17:00 UTC
+  const PARTIDO_FECHA = new Date(Date.UTC(2026, 4, 16, 17, 0, 0));
+  const PARTIDO_ID = 'partido_2026_05_16';
 
   function actualizarCountdown() {
     const ahora = new Date();
@@ -2753,7 +2752,7 @@ const db = firebase.database();
           </div>`;
         }).join('');
     if (total > 0) {
-      historialRef.child(PARTIDO_ID).set({ fecha: 'Sáb 9/5/2026', figura: sorted[0][0], votos: sorted[0][1] });
+      historialRef.child(PARTIDO_ID).set({ fecha: 'Sáb 16/5/2026', figura: sorted[0][0], votos: sorted[0][1] });
     }
   }
   function seleccionarFigura(idx) {
