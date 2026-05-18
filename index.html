@@ -1924,6 +1924,31 @@
       <div class="stat-card"><div class="stat-numero">9</div><div class="stat-label">Goles en contra</div></div>
     </div>
 
+    <!-- Goleadores del torneo -->
+    <div style="margin-top:36px;">
+      <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.2em;color:var(--dorado);text-transform:uppercase;margin-bottom:16px;">⚽ Goleadores — Apertura 2026</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.04);">
+          <span style="font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--dorado);min-width:24px;text-align:center;">1°</span>
+          <span style="font-family:'Oswald',sans-serif;font-size:14px;color:var(--blanco);flex:1;">Pedro Muñoz</span>
+          <span style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--dorado);">5</span>
+          <span style="font-size:11px;color:var(--blanco-muted);">goles</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--negro-border);background:var(--negro-card);">
+          <span style="font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--blanco-muted);min-width:24px;text-align:center;">2°</span>
+          <span style="font-family:'Oswald',sans-serif;font-size:14px;color:var(--blanco);flex:1;">Lorenzo Coniglio</span>
+          <span style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--blanco);">3</span>
+          <span style="font-size:11px;color:var(--blanco-muted);">goles</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--negro-border);background:var(--negro-card);">
+          <span style="font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;color:var(--blanco-muted);min-width:24px;text-align:center;">—</span>
+          <span style="font-family:'Oswald',sans-serif;font-size:14px;color:var(--blanco-muted);flex:1;">Matías Aniduzzi · Seba De Rosa · Franco Iorianni · Dylan Ocampo · Gastón Lasarte</span>
+          <span style="font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--blanco-muted);">1</span>
+          <span style="font-size:11px;color:var(--blanco-muted);">c/u</span>
+        </div>
+      </div>
+    </div>
+
     <div class="tabla-posiciones" style="margin-top:28px;">
       <table>
         <thead>
@@ -2257,24 +2282,25 @@
   }
 
   // ─── DATOS DEL PLANTEL ───
-  // pj2026 = 0 por ahora — se actualiza cada fecha
+  // Actualizado tras F8 vs Brujas FC (16/5) — 3 PJ jugados
   const jugadores = [
-    { nombre: 'Agustin Real',       numero: 1,  posicion: 'Arquero',       pj2026: 2, goles2026: 0 },
+    { nombre: 'Agustin Real',       numero: 1,  posicion: 'Arquero',       pj2026: 3, goles2026: 0 },
     { nombre: 'Mateo Menendez',     numero: 2,  posicion: 'Defensor',      pj2026: 2, goles2026: 0 },
-    { nombre: 'Ramiro Puente',      numero: 3,  posicion: 'Defensor',      pj2026: 2, goles2026: 0 },
-    { nombre: 'Gaston Silvero',     numero: 4,  posicion: 'Defensor',      pj2026: 2, goles2026: 0 },
-    { nombre: 'Franco Mercado',     numero: 5,  posicion: 'Mediocampista', pj2026: 2, goles2026: 0 },
-    { nombre: 'Gonzalo Batista',    numero: 6,  posicion: 'Defensor',      pj2026: 2, goles2026: 0 },
-    { nombre: 'Iñaki Aduriz',       numero: 7,  posicion: 'Mediocampista', pj2026: 2, goles2026: 0 },
-    { nombre: 'Seba De Rosa', numero: 8,  posicion: 'Extremo',       pj2026: 2, goles2026: 1 },
-    { nombre: 'Franco Iorianni',    numero: 9,  posicion: 'Delantero',     pj2026: 2, goles2026: 1 },
+    { nombre: 'Ramiro Puente',      numero: 3,  posicion: 'Defensor',      pj2026: 3, goles2026: 0 },
+    { nombre: 'Gaston Silvero',     numero: 4,  posicion: 'Defensor',      pj2026: 3, goles2026: 0 },
+    { nombre: 'Franco Mercado',     numero: 5,  posicion: 'Mediocampista', pj2026: 3, goles2026: 0 },
+    { nombre: 'Gonzalo Batista',    numero: 6,  posicion: 'Defensor',      pj2026: 3, goles2026: 0 },
+    { nombre: 'Iñaki Aduriz',       numero: 7,  posicion: 'Mediocampista', pj2026: 3, goles2026: 0 },
+    { nombre: 'Seba De Rosa',       numero: 8,  posicion: 'Extremo',       pj2026: 2, goles2026: 1 },
+    { nombre: 'Franco Iorianni',    numero: 9,  posicion: 'Delantero',     pj2026: 3, goles2026: 1 },
     { nombre: 'Matias Aniduzzi',    numero: 10, posicion: 'Extremo',       pj2026: 2, goles2026: 1 },
     { nombre: 'Segundo Aduriz',     numero: 11, posicion: 'Mediocampista', pj2026: 0, goles2026: 0 },
-    { nombre: 'Lorenzo Coniglio',   numero: 13, posicion: 'Delantero',     pj2026: 1, goles2026: 1 },
-    { nombre: 'Estanislao Stalgis', numero: 14, posicion: 'Defensor',      pj2026: 2, goles2026: 0 },
-    { nombre: 'Gaston Lasarte',     numero: 17, posicion: 'Mediocampista', pj2026: 2, goles2026: 0 },
-    { nombre: 'Dylan Ocampo',       numero: 19, posicion: 'Extremo',       pj2026: 1, goles2026: 0 },
-    { nombre: 'Pedro Muñoz',        numero: 19, posicion: 'Extremo',       pj2026: 2, goles2026: 4 },
+    { nombre: 'Lorenzo Coniglio',   numero: 13, posicion: 'Delantero',     pj2026: 3, goles2026: 3 },
+    { nombre: 'Estanislao Stalgis', numero: 14, posicion: 'Defensor',      pj2026: 3, goles2026: 0 },
+    { nombre: 'Gaston Lasarte',     numero: 17, posicion: 'Mediocampista', pj2026: 3, goles2026: 1 },
+    { nombre: 'Dylan Ocampo',       numero: 18, posicion: 'Extremo',       pj2026: 3, goles2026: 1 },
+    { nombre: 'Pedro Muñoz',        numero: 19, posicion: 'Extremo',       pj2026: 3, goles2026: 5 },
+    { nombre: 'Alfredo Lemmi',      numero: 22, posicion: 'Mediocampista', pj2026: 1, goles2026: 0 },
   ];
 
   const capitan = 'Estanislao Stalgis';
@@ -2422,7 +2448,7 @@
     { nombre: 'Franco Iorianni', goles: 14, ama: 4, roj: 1 },
     { nombre: 'Ramiro Izetta', goles: 0, ama: 1, roj: 0 },
     { nombre: 'Nicolas Juarez', goles: 3, ama: 1, roj: 0 },
-    { nombre: 'Gaston Lasarte', goles: 2, ama: 2, roj: 2 },
+    { nombre: 'Gaston Lasarte', goles: 3, ama: 2, roj: 2 },
     { nombre: 'Tomas Leguizamon', goles: 0, ama: 1, roj: 0 },
     { nombre: 'Tomas Leunda', goles: 0, ama: 5, roj: 1 },
     { nombre: 'Nicolas Leunda', goles: 0, ama: 0, roj: 0 },
