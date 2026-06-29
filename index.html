@@ -33,7 +33,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 
   body {
     background: var(--negro);
@@ -687,6 +687,39 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    transition: transform 0.25s cubic-bezier(.2,.7,.2,1), border-color 0.25s, box-shadow 0.25s;
+  }
+  /* Acento dorado superior que crece al hover */
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--dorado), transparent);
+    transform: scaleX(0);
+    transition: transform 0.35s ease;
+  }
+  .stat-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(201,168,76,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .stat-card:hover::before { transform: scaleX(1); }
+
+  /* Elevación sutil compartida en cards de partido y homenaje */
+  .partido-card { transition: border-color 0.2s, transform 0.25s cubic-bezier(.2,.7,.2,1), box-shadow 0.25s; }
+  .partido-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .homenaje-card { transition: border-color 0.25s, transform 0.3s cubic-bezier(.2,.7,.2,1), box-shadow 0.3s; }
+  .homenaje-card:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.4); }
+
+  /* Fila de Zorzal: acento dorado lateral para lectura instantánea */
+  .tabla-posiciones tbody tr.destacado td:first-child { position: relative; }
+  .tabla-posiciones tbody tr.destacado td:first-child::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--dorado);
   }
 
   .stat-card::before {
@@ -937,9 +970,9 @@
   }
   .galeria-feature img {
     width: 100%;
-    aspect-ratio: 16 / 8;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    object-position: center 38%;
+    object-position: center 62%;
     display: block;
     filter: grayscale(12%) contrast(1.04) brightness(0.82);
     transition: transform 0.7s cubic-bezier(.2,.7,.2,1), filter 0.5s;
@@ -963,6 +996,26 @@
     transition: border-color 0.25s;
   }
   .galeria-item:hover { border-color: rgba(201,168,76,0.4); }
+
+  /* Badge "ampliar" al hover */
+  .galeria-feature::after, .galeria-item::after {
+    content: '\2922';
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    color: var(--blanco);
+    background: rgba(10,10,10,0.55);
+    border: 1px solid rgba(201,168,76,0.45);
+    border-radius: 2px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .galeria-feature:hover::after, .galeria-item:hover::after { opacity: 1; transform: scale(1); }
   .galeria-item img {
     width: 100%;
     display: block;
@@ -1037,6 +1090,55 @@
     transition: 0.2s;
   }
   .lightbox-close:hover { color: var(--dorado); }
+
+  .lightbox-fig { margin: 0; max-width: 92vw; max-height: 88vh; display: flex; flex-direction: column; align-items: center; }
+  #lightbox-cap {
+    margin-top: 14px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blanco-muted);
+    text-align: center;
+  }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(20,20,20,0.5);
+    border: 1px solid var(--negro-border);
+    color: var(--blanco);
+    font-size: 30px;
+    font-family: 'Oswald', sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+  }
+  .lightbox-nav:hover { background: rgba(201,168,76,0.18); border-color: rgba(201,168,76,0.5); color: var(--dorado-claro); }
+  .lightbox-prev { left: 18px; }
+  .lightbox-next { right: 18px; }
+  .lightbox-count {
+    position: absolute;
+    bottom: 22px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--blanco-muted);
+  }
+  @media (max-width: 560px) {
+    .lightbox-nav { width: 42px; height: 42px; font-size: 24px; }
+    .lightbox-prev { left: 6px; }
+    .lightbox-next { right: 6px; }
+  }
+
+  /* En mobile no hay hover: epígrafes siempre visibles, sutiles */
+  @media (hover: none) {
+    .galeria-feature .galeria-cap,
+    .galeria-item .galeria-cap { opacity: 1; transform: none; }
+  }
 
   /* ─── SPONSORS ─── */
   #sponsors {
@@ -1435,7 +1537,6 @@
 
   @media (max-width: 768px) {
     .homenajes-tres { grid-template-columns: 1fr !important; }
-  }
     .historial-row { flex-wrap: wrap; gap: 8px; }
   }
 
@@ -1975,19 +2076,19 @@
     <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.3em;color:var(--dorado);text-transform:uppercase;margin-bottom:24px;text-align:center;">Apertura 2026 — Zorzal en números</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;">
       <div class="reveal" style="text-align:center;padding:20px 12px;border:1px solid var(--negro-border);background:var(--negro-card);">
-        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--dorado);line-height:1;">8</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--dorado);line-height:1;" class="stat-count" data-target="8">8</div>
         <div style="font-size:10px;letter-spacing:0.2em;color:var(--blanco-muted);font-family:'Oswald',sans-serif;text-transform:uppercase;margin-top:6px;">PJ</div>
       </div>
       <div class="reveal reveal-delay-1" style="text-align:center;padding:20px 12px;border:1px solid var(--negro-border);background:var(--negro-card);">
-        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:#5dbd7d;line-height:1;">5</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:#5dbd7d;line-height:1;" class="stat-count" data-target="5">5</div>
         <div style="font-size:10px;letter-spacing:0.2em;color:var(--blanco-muted);font-family:'Oswald',sans-serif;text-transform:uppercase;margin-top:6px;">Victorias</div>
       </div>
       <div class="reveal reveal-delay-2" style="text-align:center;padding:20px 12px;border:1px solid var(--negro-border);background:var(--negro-card);">
-        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--dorado);line-height:1;">24</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--dorado);line-height:1;" class="stat-count" data-target="24">24</div>
         <div style="font-size:10px;letter-spacing:0.2em;color:var(--blanco-muted);font-family:'Oswald',sans-serif;text-transform:uppercase;margin-top:6px;">Goles a favor</div>
       </div>
       <div class="reveal reveal-delay-3" style="text-align:center;padding:20px 12px;border:1px solid var(--negro-border);background:var(--negro-card);">
-        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--blanco);line-height:1;">17</div>
+        <div style="font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;color:var(--blanco);line-height:1;" class="stat-count" data-target="17">17</div>
         <div style="font-size:10px;letter-spacing:0.2em;color:var(--blanco-muted);font-family:'Oswald',sans-serif;text-transform:uppercase;margin-top:6px;">Goles en contra</div>
       </div>
       <div class="reveal reveal-delay-1" style="text-align:center;padding:20px 12px;border:1px solid var(--negro-border);background:var(--negro-card);">
@@ -2017,15 +2118,8 @@
 
   <!-- Panel 2026 -->
   <div id="panel-2026">
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-numero">8</div><div class="stat-label">Partidos jugados</div></div>
-      <div class="stat-card"><div class="stat-numero">5</div><div class="stat-label">Victorias</div></div>
-      <div class="stat-card"><div class="stat-numero">24</div><div class="stat-label">Goles a favor</div></div>
-      <div class="stat-card"><div class="stat-numero">17</div><div class="stat-label">Goles en contra</div></div>
-    </div>
-
     <!-- Goleadores del torneo -->
-    <div style="margin-top:36px;">
+    <div>
       <p style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:0.2em;color:var(--dorado);text-transform:uppercase;margin-bottom:16px;">⚽ Goleadores — Apertura 2026</p>
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.04);">
@@ -2121,6 +2215,55 @@
       <button id="btn-ver-mas" onclick="toggleTablaCompleta()" style="background:none;border:1px solid var(--negro-border);color:var(--blanco-muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:0.2s;"
         onmouseover="this.style.borderColor='var(--dorado)';this.style.color='var(--dorado)'"
         onmouseout="this.style.borderColor='var(--negro-border)';this.style.color='var(--blanco-muted)'">Ver todos</button>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- GALERÍA DEL PARTIDO -->
+<section id="galeria">
+  <p class="section-label reveal">Fotos</p>
+  <h2 class="section-title reveal reveal-delay-1">Gale<span>ría</span></h2>
+  <div class="section-rule reveal reveal-delay-2"></div>
+
+  <div style="max-width:680px;margin-bottom:40px;">
+    <p style="font-size:15px;line-height:1.9;color:var(--blanco-muted);">
+      Imágenes de la última fecha. El sol bajo, los abrazos, el barro en los botines — el fútbol de los sábados en Escobar.
+    </p>
+  </div>
+
+  <!-- Foto destacada: el equipo -->
+  <div class="galeria-feature reveal" onclick="abrirGaleria(0)">
+    <img src="galeria/equipo-huddle.jpg" alt="El equipo reunido antes del partido" loading="lazy">
+    <div class="galeria-cap"><b>El equipo</b> — todos juntos antes de saltar al campo</div>
+  </div>
+
+  <!-- Masonry del resto -->
+  <div class="galeria-grid">
+    <div class="galeria-item reveal" onclick="abrirGaleria(1)">
+      <img src="galeria/festejo-gol.jpg" alt="Festejo de gol" loading="lazy">
+      <div class="galeria-cap">Gol y abrazo</div>
+    </div>
+    <div class="galeria-item reveal" onclick="abrirGaleria(2)">
+      <img src="galeria/gambeta.jpg" alt="Gambeta entre dos rivales" loading="lazy">
+      <div class="galeria-cap">Uno contra dos</div>
+    </div>
+    <div class="galeria-item reveal" onclick="abrirGaleria(3)">
+      <img src="galeria/control.jpg" alt="Control de la pelota" loading="lazy">
+      <div class="galeria-cap">Control y salida</div>
+    </div>
+    <div class="galeria-item reveal" onclick="abrirGaleria(4)">
+      <img src="galeria/volea.jpg" alt="Volea" loading="lazy">
+      <div class="galeria-cap">De volea</div>
+    </div>
+    <div class="galeria-item reveal" onclick="abrirGaleria(5)">
+      <img src="galeria/concentracion.jpg" alt="Concentración antes de la jugada" loading="lazy">
+      <div class="galeria-cap">Concentración</div>
+    </div>
+    <div class="galeria-item reveal" onclick="abrirGaleria(6)">
+      <img src="galeria/equipo-previa.jpg" alt="La charla previa del equipo" loading="lazy">
+      <div class="galeria-cap">La charla antes del pitazo</div>
     </div>
   </div>
 </section>
@@ -2224,54 +2367,6 @@
 
 <hr class="section-sep">
 
-<!-- GALERÍA DEL PARTIDO -->
-<hr class="section-sep">
-<section id="galeria">
-  <p class="section-label reveal">Fotos</p>
-  <h2 class="section-title reveal reveal-delay-1">Gale<span>ría</span></h2>
-  <div class="section-rule reveal reveal-delay-2"></div>
-
-  <div style="max-width:680px;margin-bottom:40px;">
-    <p style="font-size:15px;line-height:1.9;color:var(--blanco-muted);">
-      Imágenes de la última fecha. El sol bajo, los abrazos, el barro en los botines — el fútbol de los sábados en Escobar.
-    </p>
-  </div>
-
-  <!-- Foto destacada: el equipo -->
-  <div class="galeria-feature reveal" onclick="abrirLightbox('files/galeria/equipo-huddle.jpg')">
-    <img src="files/galeria/equipo-huddle.jpg" alt="El equipo reunido antes del partido" loading="lazy">
-    <div class="galeria-cap"><b>El equipo</b> — todos juntos antes de saltar al campo</div>
-  </div>
-
-  <!-- Masonry del resto -->
-  <div class="galeria-grid">
-    <div class="galeria-item reveal" onclick="abrirLightbox('files/galeria/festejo-gol.jpg')">
-      <img src="files/galeria/festejo-gol.jpg" alt="Festejo de gol" loading="lazy">
-      <div class="galeria-cap">Gol y abrazo</div>
-    </div>
-    <div class="galeria-item reveal" onclick="abrirLightbox('files/galeria/gambeta.jpg')">
-      <img src="files/galeria/gambeta.jpg" alt="Gambeta entre dos rivales" loading="lazy">
-      <div class="galeria-cap">Uno contra dos</div>
-    </div>
-    <div class="galeria-item reveal" onclick="abrirLightbox('files/galeria/control.jpg')">
-      <img src="files/galeria/control.jpg" alt="Control de la pelota" loading="lazy">
-      <div class="galeria-cap">Control y salida</div>
-    </div>
-    <div class="galeria-item reveal" onclick="abrirLightbox('files/galeria/volea.jpg')">
-      <img src="files/galeria/volea.jpg" alt="Volea" loading="lazy">
-      <div class="galeria-cap">De volea</div>
-    </div>
-    <div class="galeria-item reveal" onclick="abrirLightbox('files/galeria/concentracion.jpg')">
-      <img src="files/galeria/concentracion.jpg" alt="Concentración antes de la jugada" loading="lazy">
-      <div class="galeria-cap">Concentración</div>
-    </div>
-    <div class="galeria-item reveal" onclick="abrirLightbox('files/galeria/equipo-previa.jpg')">
-      <img src="files/galeria/equipo-previa.jpg" alt="La charla previa del equipo" loading="lazy">
-      <div class="galeria-cap">La charla antes del pitazo</div>
-    </div>
-  </div>
-</section>
-
 <!-- HOMENAJES -->
 <section id="homenajes">
   <p class="section-label">Memoria</p>
@@ -2295,8 +2390,8 @@
 
   <!-- Brazalete JMA ∞ -->
   <div style="display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:24px;align-items:center;margin-bottom:16px;border:1px solid var(--negro-border);background:var(--negro-card);padding:20px;" class="homenaje-brazalete">
-    <div class="homenaje-card" style="border:none;cursor:zoom-in;" onclick="abrirLightbox('files/galeria/jma-brazalete.jpg')">
-      <img class="homenaje-img" src="files/galeria/jma-brazalete.jpg" alt="Brazalete de capitán con la inscripción JMA ∞" style="aspect-ratio:3/4;object-position:center;filter:grayscale(20%) brightness(0.85);">
+    <div class="homenaje-card" style="border:none;cursor:zoom-in;" onclick="abrirLightbox('galeria/jma-brazalete.jpg')">
+      <img class="homenaje-img" src="galeria/jma-brazalete.jpg" alt="Brazalete de capitán con la inscripción JMA ∞" style="aspect-ratio:3/4;object-position:center;filter:grayscale(20%) brightness(0.85);">
     </div>
     <div>
       <div style="font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:0.3em;color:var(--dorado);text-transform:uppercase;margin-bottom:10px;">JMA <span style="font-size:16px;">∞</span></div>
@@ -3129,6 +3224,7 @@ const db = firebase.database();
     { id: 'equipo',        label: 'Plantel'       },
     { id: 'fixture',       label: 'Fixture'       },
     { id: 'estadisticas',  label: 'Estadísticas'  },
+    { id: 'galeria',       label: 'Galería'       },
     { id: 'figura',        label: 'Figura'        },
     { id: 'blog',          label: 'Blog'          },
     { id: 'comentarios',   label: 'Opiniones'     },
@@ -3253,7 +3349,7 @@ const db = firebase.database();
       });
       lista += '</div>';
 
-      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:28px;' + (m.month !== 5 ? 'display:none;' : '') + '">'
+      container.innerHTML += '<div class="cal-mes" data-mes="' + m.month + '" style="background:var(--negro-card);border:1px solid var(--negro-border);padding:28px;' + ((m.month !== 5 && m.month !== 6) ? 'display:none;' : '') + '">'
         + '<div style="font-family:\'Oswald\',sans-serif;font-size:14px;letter-spacing:0.2em;color:var(--dorado);font-weight:600;text-transform:uppercase;margin-bottom:16px;">' + MESES_NOMBRE[m.month] + ' ' + m.year + (m.month < 5 ? ' <span style="font-size:10px;color:rgba(168,168,158,0.5);letter-spacing:0.1em;">— MES PASADO</span>' : '') + '</div>'
         + grid
         + lista
@@ -3261,11 +3357,11 @@ const db = firebase.database();
     });
 
     // Botón ver más meses
-    var hayMas = Object.values(meses).some(function(m){ return m.month !== 5; });
+    var hayMas = Object.values(meses).some(function(m){ return m.month !== 5 && m.month !== 6; });
     if (hayMas) {
       var btnDiv = document.createElement('div');
       btnDiv.style.cssText = 'grid-column:1/-1;text-align:center;margin-top:4px;';
-      btnDiv.innerHTML = '<button id="btn-ver-meses" onclick="toggleMeses()" style="background:none;border:1px solid var(--negro-border);color:var(--blanco-muted);font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:0.2s;" onmouseover="this.style.borderColor=\'var(--dorado)\';this.style.color=\'var(--dorado)\'" onmouseout="this.style.borderColor=\'var(--negro-border)\';this.style.color=\'var(--blanco-muted)\'">Ver todos los meses ↓</button>';
+      btnDiv.innerHTML = '<button id="btn-ver-meses" onclick="toggleMeses()" style="background:none;border:1px solid var(--negro-border);color:var(--blanco-muted);font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:0.2s;" onmouseover="this.style.borderColor=\'var(--dorado)\';this.style.color=\'var(--dorado)\'" onmouseout="this.style.borderColor=\'var(--negro-border)\';this.style.color=\'var(--blanco-muted)\'">Ver meses anteriores ↓</button>';
       container.appendChild(btnDiv);
     }
   })();
@@ -3274,10 +3370,10 @@ const db = firebase.database();
   function toggleMeses() {
     mesesVisible = !mesesVisible;
     document.querySelectorAll('.cal-mes').forEach(function(el) {
-      if (parseInt(el.dataset.mes) !== 5) el.style.display = mesesVisible ? 'block' : 'none';
+      if (parseInt(el.dataset.mes) !== 5 && parseInt(el.dataset.mes) !== 6) el.style.display = mesesVisible ? 'block' : 'none';
     });
     var btn = document.getElementById('btn-ver-meses');
-    if (btn) btn.textContent = mesesVisible ? 'Ocultar ↑' : 'Ver todos los meses ↓';
+    if (btn) btn.textContent = mesesVisible ? 'Ocultar ↑' : 'Ver meses anteriores ↓';
   }
 
 </script>
@@ -3641,28 +3737,116 @@ function cerrarInstall() {
 }
 </script>
 
+<!-- COUNT-UP STATS DEL EQUIPO -->
+<script>
+(function(){
+  var els = document.querySelectorAll('.stat-count');
+  if (!els.length) return;
+  function animate(el){
+    var target = parseInt(el.getAttribute('data-target'),10) || 0;
+    var dur = 1100, start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(target*eased);
+      if(p<1) requestAnimationFrame(step); else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){ e.textContent = e.getAttribute('data-target'); });
+    return;
+  }
+  els.forEach(function(e){ e.textContent = '0'; });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ animate(en.target); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.4 });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+
 <!-- LIGHTBOX GALERÍA -->
 <div class="lightbox" id="lightbox" onclick="cerrarLightbox()">
-  <span class="lightbox-close" aria-label="Cerrar">&times;</span>
-  <img id="lightbox-img" src="" alt="">
+  <span class="lightbox-close" aria-label="Cerrar" onclick="event.stopPropagation();cerrarLightbox()">&times;</span>
+  <button class="lightbox-nav lightbox-prev" aria-label="Anterior" onclick="event.stopPropagation();navGaleria(-1)">&#8249;</button>
+  <figure class="lightbox-fig" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="">
+    <figcaption id="lightbox-cap"></figcaption>
+  </figure>
+  <button class="lightbox-nav lightbox-next" aria-label="Siguiente" onclick="event.stopPropagation();navGaleria(1)">&#8250;</button>
+  <div class="lightbox-count" id="lightbox-count"></div>
 </div>
 <script>
-  function abrirLightbox(src) {
+  var GALERIA = [
+    { src: 'galeria/equipo-huddle.jpg', cap: 'El equipo — todos juntos antes de saltar al campo' },
+    { src: 'galeria/festejo-gol.jpg',   cap: 'Gol y abrazo' },
+    { src: 'galeria/gambeta.jpg',       cap: 'Uno contra dos' },
+    { src: 'galeria/control.jpg',       cap: 'Control y salida' },
+    { src: 'galeria/volea.jpg',         cap: 'De volea' },
+    { src: 'galeria/concentracion.jpg', cap: 'Concentración' },
+    { src: 'galeria/equipo-previa.jpg', cap: 'La charla antes del pitazo' }
+  ];
+  var lbIndex = -1; // -1 = modo foto única (sin navegación)
+
+  function _renderLb() {
     var lb = document.getElementById('lightbox');
-    var img = document.getElementById('lightbox-img');
-    img.src = src;
-    lb.classList.add('open');
+    var nav = lb.querySelectorAll('.lightbox-nav');
+    var count = document.getElementById('lightbox-count');
+    var multi = lbIndex >= 0;
+    nav.forEach(function(b){ b.style.display = multi ? 'flex' : 'none'; });
+    count.style.display = multi ? 'block' : 'none';
+    if (multi) count.textContent = (lbIndex + 1) + ' / ' + GALERIA.length;
+  }
+  function abrirGaleria(i) {
+    lbIndex = i;
+    var item = GALERIA[i];
+    document.getElementById('lightbox-img').src = item.src;
+    document.getElementById('lightbox-cap').textContent = item.cap;
+    document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
+    _renderLb();
+  }
+  function navGaleria(dir) {
+    if (lbIndex < 0) return;
+    lbIndex = (lbIndex + dir + GALERIA.length) % GALERIA.length;
+    abrirGaleria(lbIndex);
+  }
+  function abrirLightbox(src, cap) {
+    lbIndex = -1;
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-cap').textContent = cap || '';
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    _renderLb();
   }
   function cerrarLightbox() {
     var lb = document.getElementById('lightbox');
     lb.classList.remove('open');
     document.getElementById('lightbox-img').src = '';
     document.body.style.overflow = '';
+    lbIndex = -1;
   }
   document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
     if (e.key === 'Escape') cerrarLightbox();
+    else if (e.key === 'ArrowLeft') navGaleria(-1);
+    else if (e.key === 'ArrowRight') navGaleria(1);
   });
+  // Swipe en mobile
+  (function(){
+    var x0 = null;
+    var lb = document.getElementById('lightbox');
+    lb.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    lb.addEventListener('touchend', function(e){
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) navGaleria(dx < 0 ? 1 : -1);
+      x0 = null;
+    }, {passive:true});
+  })();
 </script>
 </body>
 </html>
