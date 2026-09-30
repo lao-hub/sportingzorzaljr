@@ -14,17 +14,17 @@
 <meta name="apple-mobile-web-app-title" content="Zorzal Jr">
 <meta property="og:title" content="Sporting Zorzal Jr">
 <meta property="og:description" content="Próximo partido, tabla, fixture y plantel.">
-<meta property="og:image" content="https://sportingzorzaljr.vercel.app/galeria/equipo-2026-900.jpg">
+<meta property="og:image" content="https://sportingzorzaljr.vercel.app/equipo-2026-900.jpg">
 <link rel="icon" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/icon-512.png">
-<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face { font-family: 'Archivo'; src: url(/fonts/archivo.woff2) format('woff2-variations'), url(/fonts/archivo.woff2) format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap; }
-@font-face { font-family: 'IBM Plex Mono'; src: url(/fonts/plex-mono-400.woff2) format('woff2'); font-weight: 400; font-display: swap; }
-@font-face { font-family: 'IBM Plex Mono'; src: url(/fonts/plex-mono-500.woff2) format('woff2'); font-weight: 500; font-display: swap; }
-@font-face { font-family: 'IBM Plex Mono'; src: url(/fonts/plex-mono-600.woff2) format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Instrument Serif'; src: url(/fonts/instrument-serif.woff2) format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Instrument Serif'; src: url(/fonts/instrument-serif-italic.woff2) format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Archivo'; src: url(/archivo.woff2) format('woff2-variations'), url(/archivo.woff2) format('woff2'); font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url(/plex-mono-400.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url(/plex-mono-500.woff2) format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url(/plex-mono-600.woff2) format('woff2'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Instrument Serif'; src: url(/instrument-serif.woff2) format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Instrument Serif'; src: url(/instrument-serif-italic.woff2) format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
 :root {
   --papel: #0D0C0B;
   --papel-2: #22201D;
@@ -612,7 +612,7 @@ table.hist { width: 100%; border-collapse: collapse; }
 
 <!-- HERO -->
 <section class="hero" id="inicio">
-  <img class="hero-foto" src="galeria/equipo-sol.jpg" srcset="galeria/equipo-sol-900.jpg 900w, galeria/equipo-sol.jpg 1280w" sizes="100vw" alt="El plantel de Sporting Zorzal Jr en la cancha, a pleno sol, con la camiseta 7" fetchpriority="high">
+  <img class="hero-foto" src="equipo-sol.jpg" srcset="equipo-sol-900.jpg 900w, equipo-sol.jpg 1280w" sizes="100vw" alt="El plantel de Sporting Zorzal Jr en la cancha, a pleno sol, con la camiseta 7" fetchpriority="high">
   <div class="hero-txt">
     <div class="hero-meta"><span>Escobar · Bs. As.</span><span>Desde 1991</span><span id="hero-torneo">Clausura 2026</span></div>
     <h1 class="hero-titulo">Sporting<br>Zorzal<em class="jr">Jr.</em></h1>
@@ -830,7 +830,7 @@ table.hist { width: 100%; border-collapse: collapse; }
   <div class="wrap">
     <p class="kicker">El club</p>
     <h2 class="titulo">Todos somos <em>uno</em></h2>
-    <figure class="club-foto" onclick="abrirLightbox('galeria/equipo-2026.jpg','El plantel, la familia y los amigos')"><img src="galeria/equipo-2026-900.jpg" alt="El plantel con familia y amigos al atardecer" loading="lazy"><figcaption>La familia Zorzal · Clausura 2026</figcaption></figure>
+    <figure class="club-foto" onclick="abrirLightbox('equipo-2026.jpg','El plantel, la familia y los amigos')"><img src="equipo-2026-900.jpg" alt="El plantel con familia y amigos al atardecer" loading="lazy"><figcaption>La familia Zorzal · Clausura 2026</figcaption></figure>
     <div class="club">
       <div class="club-txt">
         <p>Un equipo <strong>humilde, intenso y de lucha</strong>. Construido con amigos, sostenido por el grupo y guiado por el "todos somos uno".</p>
@@ -1072,8 +1072,8 @@ const capitan = 'Estanislao Stalgis';
 const subcapitan = 'Iñaki Aduriz';
 
 const GALERIA = [
-  { src:'galeria/equipo-sol.jpg',    cap:'Punteros · después del 4-0 a Chascomús' },
-  { src:'galeria/equipo-2026.jpg',   cap:'El plantel, la familia y los amigos' },
+  { src:'equipo-sol.jpg',    cap:'Punteros · después del 4-0 a Chascomús' },
+  { src:'equipo-2026.jpg',   cap:'El plantel, la familia y los amigos' },
   { src:'galeria/festejo-gol.jpg',   cap:'Gol y abrazo' },
   { src:'galeria/equipo-huddle.jpg', cap:'Todos juntos antes de salir' },
   { src:'galeria/gambeta.jpg',       cap:'Uno contra dos' },
@@ -1084,11 +1084,11 @@ const GALERIA = [
 ];
 
 const CRONICAS = [
-  { fecha:'26 sep 2026', tag:'Clausura · F4', img:'galeria/equipo-sol-900.jpg', link:'#tabla',
+  { fecha:'26 sep 2026', tag:'Clausura · F4', img:'equipo-sol-900.jpg', link:'#tabla',
     titulo:'4-0 y punteros', texto:'Triplete de Iorianni y gol de Batista ante Chascomús. Invictos, 10 puntos y solos arriba de la tabla. Ahora fecha libre y el 10/10, Piro FC.' },
   { fecha:'19 sep 2026', tag:'Clausura', img:'galeria/festejo-gol.jpg', link:'#tabla',
     titulo:'Arranque invicto: 7 de 9', texto:'Debut en NorthChamp con 3-1 a Alumni, 3-2 a Popeye y 1-1 con Boreal. Segundos, con los mismos puntos que el líder La Saeta.' },
-  { fecha:'5 sep 2026', tag:'Plantel', img:'galeria/equipo-2026-900.jpg', link:'#plantel',
+  { fecha:'5 sep 2026', tag:'Plantel', img:'equipo-2026-900.jpg', link:'#plantel',
     titulo:'Caras nuevas', texto:'Se suman Nicolás Juárez (5), Mauro Moyano (22) y Tomás Sampogna (21). Lemmi estrena la 2. ¡Bienvenidos!' },
 ];
 
