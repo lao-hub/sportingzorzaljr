@@ -992,7 +992,7 @@ const PARTIDOS = [
   { torneo:'Clausura 2026', n:2,  fecha:'2026-09-12', hora:'16:00', cancha:'16', sede:'paraisos', local:ZORZAL, visitante:'Popeye', gl:3, gv:2 },
   { torneo:'Clausura 2026', n:3,  fecha:'2026-09-19', hora:'12:00', cancha:'9',  sede:'paraisos', local:ZORZAL, visitante:'Boreal', gl:1, gv:1 },
   { torneo:'Clausura 2026', n:4,  fecha:'2026-09-26', hora:'10:00', cancha:'15', sede:'paraisos', local:ZORZAL, visitante:'Chascomús FC', gl:4, gv:0,
-    goles:['Franco Iorianni','Franco Iorianni','Franco Iorianni','Gonzalo Batista'] },
+    goles:['Franco Iorianni','Franco Iorianni','Franco Iorianni','Nicolas Hemgren'] },
   { torneo:'Clausura 2026', n:5,  fecha:'2026-10-03', libre:true },
   { torneo:'Clausura 2026', n:6,  fecha:'2026-10-10', hora:'16:00', cancha:'5',  sede:'paraisos', local:ZORZAL, visitante:'Piro FC', gl:null, gv:null },
   { torneo:'Clausura 2026', n:7,  fecha:'2026-10-17', hora:'16:00', cancha:'13', sede:'paraisos', local:ZORZAL, visitante:'La Saeta', gl:null, gv:null },
@@ -1043,10 +1043,10 @@ const TABLAS = {
 const jugadores = [
   // ── Plantel Clausura 2026 ──
   { nombre:'Valentin Turvein',   numero:null, posicion:'Arquero',     gAp:0, gCl:0, amaCl:0, invitado:true },
-  { nombre:'Alfredo Lemmi',      numero:2,  posicion:'Mediocampista', gAp:0, gCl:1, amaCl:0 },
+  { nombre:'Alfredo Lemmi',      numero:2,  posicion:'Defensor',      gAp:0, gCl:1, amaCl:0 },
   { nombre:'Gaston Silvero',     numero:4,  posicion:'Defensor',      gAp:0, gCl:0, amaCl:0 },
   { nombre:'Nicolas Juarez',     numero:5,  posicion:'Mediocampista', gAp:0, gCl:0, amaCl:1, nuevo:true },
-  { nombre:'Gonzalo Batista',    numero:6,  posicion:'Defensor',      gAp:0, gCl:2, amaCl:1 },
+  { nombre:'Gonzalo Batista',    numero:6,  posicion:'Defensor',      gAp:0, gCl:1, amaCl:1 },
   { nombre:'Iñaki Aduriz',       numero:7,  posicion:'Mediocampista', gAp:1, gCl:0, amaCl:0 },
   { nombre:'Seba De Rosa',       numero:8,  posicion:'Extremo',       gAp:1, gCl:0, amaCl:0 },
   { nombre:'Franco Iorianni',    numero:9,  posicion:'Delantero',     gAp:9, gCl:4, amaCl:0, mejCl:2 },
@@ -1057,6 +1057,7 @@ const jugadores = [
   { nombre:'Dylan Ocampo',       numero:18, posicion:'Extremo',       gAp:3, gCl:1, amaCl:0 },
   { nombre:'Pedro Muñoz',        numero:19, posicion:'Extremo',       gAp:6, gCl:0, amaCl:0 },
   { nombre:'Tomas Sampogna',     numero:21, posicion:'Delantero',     gAp:0, gCl:1, amaCl:0, nuevo:true },
+  { nombre:'Nicolas Hemgren',    numero:null, posicion:'Delantero',   gAp:0, gCl:1, amaCl:0 },
   { nombre:'Mauro Moyano',       numero:22, posicion:'Mediocampista', gAp:0, gCl:0, amaCl:1, nuevo:true },
   // ── Ya no están (baja:true): no aparecen en el plantel, sus goles siguen contando ──
   { nombre:'Agustin Real',       numero:1,  posicion:'Arquero',       gAp:0, gCl:0, amaCl:0, baja:true },
@@ -1085,7 +1086,7 @@ const GALERIA = [
 
 const CRONICAS = [
   { fecha:'26 sep 2026', tag:'Clausura · F4', img:'equipo-sol-900.jpg', link:'#tabla',
-    titulo:'4-0 y punteros', texto:'Triplete de Iorianni y gol de Batista ante Chascomús. Invictos, 10 puntos y solos arriba de la tabla. Ahora fecha libre y el 10/10, Piro FC.' },
+    titulo:'4-0 y punteros', texto:'Triplete de Iorianni y gol de Hemgren ante Chascomús. Invictos, 10 puntos y solos arriba de la tabla. Ahora fecha libre y el 10/10, Piro FC.' },
   { fecha:'19 sep 2026', tag:'Clausura', img:'galeria/festejo-gol.jpg', link:'#tabla',
     titulo:'Arranque invicto: 7 de 9', texto:'Debut en NorthChamp con 3-1 a Alumni, 3-2 a Popeye y 1-1 con Boreal. Segundos, con los mismos puntos que el líder La Saeta.' },
   { fecha:'5 sep 2026', tag:'Plantel', img:'equipo-2026-900.jpg', link:'#plantel',
