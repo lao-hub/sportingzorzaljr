@@ -1415,8 +1415,10 @@ let fixtureTodo = false;
 function filaFixture(p) {
   if (p.libre) return '<div class="fx-row"><div class="fx-fecha"><b>' + fechaCorta(p) + '</b>F' + p.n + '</div><div class="fx-rival" style="color:var(--tinta-3)">Fecha libre</div><span class="fx-res libre">Libre</span></div>';
   const v = pView(p), prox = p === PROXIMO;
-  const meta = [v.esLocal ? 'Local' : 'Visitante']; if (p.cancha) meta.push('Cancha ' + p.cancha); if (p.goles) meta.push(golesTxt(p.goles)); if (p.nota) meta.push(p.nota);
-  return '<div class="fx-row' + (prox ? ' prox' : '') + '"><div class="fx-fecha"><b>' + fechaCorta(p) + '</b>' + (p.hora ? p.hora + ' hs' : (p.n ? 'F' + p.n : '')) + '</div>'
+  // jugados: solo goles (y nota) · pendientes: local/visitante y cancha
+  const meta = []; if (!v.jugado) { meta.push(v.esLocal ? 'Local' : 'Visitante'); if (p.cancha) meta.push('Cancha ' + p.cancha); }
+  if (p.goles) meta.push(golesTxt(p.goles)); if (p.nota) meta.push(p.nota);
+  return '<div class="fx-row' + (prox ? ' prox' : '') + '"><div class="fx-fecha"><b>' + fechaCorta(p) + '</b>' + (p.n ? 'F' + p.n : (p.hora && !v.jugado ? p.hora + ' hs' : '')) + '</div>'
     + '<div class="fx-rival">' + (prox ? '<span class="mono" style="font-size:10.5px;letter-spacing:.12em;display:block;">PRÓXIMO</span>' : '') + 'vs ' + esc(v.rival) + '<small>' + esc(meta.join(' · ')) + '</small></div>'
     + (v.jugado ? '<span class="fx-res ' + v.res + '">' + v.gf + '–' + v.gc + '</span>' : '<span class="fx-res pend">' + (p.hora || '—') + '</span>') + '</div>';
 }
