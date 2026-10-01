@@ -287,6 +287,7 @@ table.tabla { width: 100%; border-collapse: collapse; min-width: 560px; }
 .tag-new { background: var(--atardecer); border-color: var(--atardecer); color: #fff; }
 .tag-inv { border-style: dashed; }
 .carta.vacante { background: transparent; border-style: dashed; }
+.ver-mas { display: none; width: 100%; margin-top: 10px; }
 .carta.con-foto { min-height: 280px; justify-content: flex-end; }
 .carta-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; filter: saturate(0.9) contrast(1.04); transition: transform 0.5s cubic-bezier(.2,.8,.2,1); }
 .carta.con-foto:hover .carta-foto { transform: scale(1.04); }
@@ -580,6 +581,8 @@ table.hist { width: 100%; border-collapse: collapse; }
   .f-num { font-size: 88px; }
   .cuenta div { min-width: 0; flex: 1; }
   /* Celular más compacto */
+  .colapsable:not(.abierta) .extra-movil { display: none; }
+  .colapsable:not(.abierta) + .ver-mas { display: flex; }
   .seccion { padding: 44px 0; }
   .nombres { grid-template-columns: repeat(3, 1fr); gap: 5px; }
   .nombre { min-height: 40px; padding: 7px 8px; gap: 6px; }
@@ -815,7 +818,8 @@ table.hist { width: 100%; border-collapse: collapse; }
   <div class="wrap">
     <p class="kicker">Galería</p>
     <h2 class="titulo">Fo<em>tos</em></h2>
-    <div class="galeria" id="galeria-grid"></div>
+    <div class="galeria colapsable" id="galeria-grid"></div>
+    <button class="btn ver-mas" onclick="this.previousElementSibling.classList.add('abierta')">Ver todas las fotos</button>
   </div>
 </section>
 
@@ -880,7 +884,7 @@ table.hist { width: 100%; border-collapse: collapse; }
     <p class="kicker">Memoria</p>
     <h2 class="titulo">Home<em>najes</em></h2>
     <p class="hom-intro">A quienes abrieron el camino, a los que hoy nos acompañan desde lo alto, desde la cancha o desde rincones lejanos del mundo. Fueron los cimientos de este club: guías silenciosos que con pequeños detalles enseñaron grandes valores. Para ellos, este agradecimiento eterno.</p>
-    <div class="hom-grid">
+    <div class="hom-grid colapsable">
       <figure class="hom h-ancho" onclick="abrirLightbox('galeria/homenaje-camisetas-legado.jpg','Las camisetas del legado')"><img src="galeria/homenaje-camisetas-legado.jpg" alt="Camisetas enmarcadas de Sporting Zorzal" loading="lazy"><figcaption><b>Las camisetas del legado</b><span>La #7 de Juan, enmarcada para siempre: el símbolo de lo que fundaron.</span></figcaption></figure>
       <div class="brazalete">
         <figure class="hom" onclick="abrirLightbox('galeria/jma-brazalete.jpg','JMA ∞')"><img src="galeria/jma-brazalete.jpg" alt="Brazalete de capitán con la inscripción JMA ∞" loading="lazy"></figure>
@@ -892,10 +896,11 @@ table.hist { width: 100%; border-collapse: collapse; }
       </div>
       <figure class="hom h-mitad" onclick="abrirLightbox('galeria/homenaje-juan-hijos-playa.jpg','Juan Aduriz')"><img src="galeria/homenaje-juan-hijos-playa.jpg" alt="Juan con sus hijos en la playa" loading="lazy"><figcaption><b>Juan Aduriz</b><span>Fundador del Sporting Zorzal, el que plantó la semilla.</span></figcaption></figure>
       <figure class="hom h-mitad" onclick="abrirLightbox('galeria/homenaje-rafa-trofeo.jpg','Rafa Aduriz')"><img src="galeria/homenaje-rafa-trofeo.jpg" alt="Rafa con un trofeo" loading="lazy"><figcaption><b>Rafa Aduriz</b><span>Co-fundador, el que mantiene en pie este club hasta hoy.</span></figcaption></figure>
-      <figure class="hom h-tercio" onclick="abrirLightbox('galeria/homenaje-juan-inaki-segundo.jpg','Juan, Iñaki y Segundo')"><img src="galeria/homenaje-juan-inaki-segundo.jpg" alt="Juan con Iñaki y Segundo de chicos" loading="lazy"><figcaption><b>Juan, Iñaki y Segundo</b><span>Los hijos que siguieron sus pasos en la cancha.</span></figcaption></figure>
-      <figure class="hom h-tercio" onclick="abrirLightbox('galeria/homenaje-fundadores.jpg','Los fundadores')"><img src="galeria/homenaje-fundadores.jpg" alt="Rafa y Juan, los fundadores" loading="lazy"><figcaption><b>Los fundadores</b><span>Rafa y Juan: hermanos, amigos, cimientos del club.</span></figcaption></figure>
-      <figure class="hom h-tercio" onclick="abrirLightbox('galeria/homenaje-familia-zorzal.jpg','La familia Zorzal')"><img src="galeria/homenaje-familia-zorzal.jpg" alt="Reunión familiar" loading="lazy"><figcaption><b>La familia Zorzal</b><span>Donde todo empezó: entre asados, risas y fútbol.</span></figcaption></figure>
+      <figure class="hom h-tercio extra-movil" onclick="abrirLightbox('galeria/homenaje-juan-inaki-segundo.jpg','Juan, Iñaki y Segundo')"><img src="galeria/homenaje-juan-inaki-segundo.jpg" alt="Juan con Iñaki y Segundo de chicos" loading="lazy"><figcaption><b>Juan, Iñaki y Segundo</b><span>Los hijos que siguieron sus pasos en la cancha.</span></figcaption></figure>
+      <figure class="hom h-tercio extra-movil" onclick="abrirLightbox('galeria/homenaje-fundadores.jpg','Los fundadores')"><img src="galeria/homenaje-fundadores.jpg" alt="Rafa y Juan, los fundadores" loading="lazy"><figcaption><b>Los fundadores</b><span>Rafa y Juan: hermanos, amigos, cimientos del club.</span></figcaption></figure>
+      <figure class="hom h-tercio extra-movil" onclick="abrirLightbox('galeria/homenaje-familia-zorzal.jpg','La familia Zorzal')"><img src="galeria/homenaje-familia-zorzal.jpg" alt="Reunión familiar" loading="lazy"><figcaption><b>La familia Zorzal</b><span>Donde todo empezó: entre asados, risas y fútbol.</span></figcaption></figure>
     </div>
+    <button class="btn ver-mas" onclick="this.previousElementSibling.classList.add('abierta')">Ver más homenajes</button>
   </div>
 </section>
 
@@ -1078,10 +1083,10 @@ const jugadores = [
   { nombre:'Segundo Aduriz',     numero:11, posicion:'Mediocampista', gAp:1, gCl:0, amaCl:0, foto:'segundo-aduriz.jpg' },
   { nombre:'Estanislao Stalgis', numero:14, posicion:'Defensor',      gAp:0, gCl:0, amaCl:0, foto:'stalgis.jpg' },
   { nombre:'Gaston Lasarte',     numero:17, posicion:'Mediocampista', gAp:1, gCl:0, amaCl:1, foto:'lasarte.jpg' },
-  { nombre:'Dylan Ocampo',       numero:18, posicion:'Extremo',       gAp:3, gCl:1, amaCl:0, foto:'ocampo.jpg', fotoPos:'50% 45%' },
+  { nombre:'Dylan Ocampo',       numero:null, posicion:'Extremo',       gAp:3, gCl:1, amaCl:0, foto:'ocampo.jpg', fotoPos:'50% 45%', invitado:true },
   { nombre:'Pedro Muñoz',        numero:19, posicion:'Extremo',       gAp:6, gCl:0, amaCl:0, foto:'munoz.jpg', fotoPos:'50% 45%' },
   { nombre:'Tomas Sampogna',     numero:21, posicion:'Delantero',     gAp:0, gCl:2, amaCl:0, nuevo:true },
-  { nombre:'Nicolas Hemgren',    numero:22, posicion:'Delantero',     gAp:0, gCl:1, amaCl:0 },
+  { nombre:'Nicolas Hemgren',    numero:18, posicion:'Delantero',     gAp:0, gCl:1, amaCl:0 },
   { nombre:'Mauro Moyano',       numero:22, posicion:'Mediocampista', gAp:0, gCl:0, amaCl:1, nuevo:true },
   // ── Ya no están (baja:true): no aparecen en el plantel, sus goles siguen contando ──
   { nombre:'Agustin Real',       numero:1,  posicion:'Arquero',       gAp:0, gCl:0, amaCl:0, baja:true },
@@ -1478,7 +1483,7 @@ function abrirFicha(i) {
   const j = jugadores[i]; if (!j) return;
   const n = nombrePila(j.nombre), h = buscarHistorico(j.nombre);
   const st = (v, l) => '<div class="f-stat"><b>' + v + '</b><span>' + l + '</span></div>';
-  const rol = j.nombre === capitan ? 'Capitán' : j.nombre === subcapitan ? 'Subcapitán' : j.invitado ? 'Arquero invitado' : j.nuevo ? 'Incorporación ' + TORNEO_ACTUAL : '';
+  const rol = j.nombre === capitan ? 'Capitán' : j.nombre === subcapitan ? 'Subcapitán' : j.invitado ? (j.posicion === 'Arquero' ? 'Arquero invitado' : 'Invitado') : j.nuevo ? 'Incorporación ' + TORNEO_ACTUAL : '';
   $('ficha-body').innerHTML = (j.foto ? '<img class="f-foto" src="jugadores/' + j.foto + '" alt="' + esc(j.nombre) + '"' + (j.fotoPos ? ' style="object-position:' + j.fotoPos + '"' : '') + '>' : '')
     + '<div class="f-top"><div class="f-num">' + (j.numero != null ? j.numero : '–') + '</div><div><div class="f-nombre"><span>' + esc(n.pila) + '</span>' + esc(n.ape) + '</div><div class="f-pos">' + (j.posicion || '') + (rol ? ' · ' + rol : '') + '</div></div></div>'
     + '<p class="f-sec">Temporada 2026</p><div class="f-grid">' + st((j.gAp || 0) + (j.gCl || 0), 'Goles 2026') + st(j.gAp || 0, 'Goles Apertura') + st(j.gCl || 0, 'Goles Clausura')
@@ -1535,7 +1540,7 @@ function renderHist() {
 let lbIndex = -1;
 function renderGaleria() {
   const cls = ['g1', '', 'g2', '', '', '', '', ''];
-  $('galeria-grid').innerHTML = GALERIA.map((g, i) => '<figure class="gal rv ' + (cls[i] || '') + '" onclick="abrirGaleria(' + i + ')"><img src="' + g.src + '" alt="' + esc(g.cap) + '" loading="lazy"><figcaption>' + esc(g.cap) + '</figcaption></figure>').join('');
+  $('galeria-grid').innerHTML = GALERIA.map((g, i) => '<figure class="gal rv ' + (cls[i] || '') + (i >= 4 ? ' extra-movil' : '') + '" onclick="abrirGaleria(' + i + ')"><img src="' + g.src + '" alt="' + esc(g.cap) + '" loading="lazy"><figcaption>' + esc(g.cap) + '</figcaption></figure>').join('');
 }
 function _lb(src, cap, multi) {
   $('lb-img').src = src; $('lb-cap').textContent = cap || '';
