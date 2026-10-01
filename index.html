@@ -50,7 +50,7 @@
   --max: 1180px;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(64px + env(safe-area-inset-top)); -webkit-text-size-adjust: 100%; }
 body { background: var(--papel); color: var(--tinta); font-family: var(--display); font-stretch: 100%; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 img { display: block; max-width: 100%; }
 a { color: inherit; }
@@ -69,7 +69,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .seccion-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 24px; flex-wrap: wrap; margin-bottom: clamp(20px, 3vw, 32px); }
 
 /* Nav */
-.nav { position: sticky; top: 0; z-index: 800; background: rgba(13,12,11,0.86); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--linea); }
+.nav { position: sticky; top: 0; z-index: 800; padding-top: env(safe-area-inset-top); background: rgba(13,12,11,0.86); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--linea); }
 .nav-in { height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .nav-marca { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-marca img { width: 36px; height: 36px; }
@@ -85,7 +85,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .btn-menu i:nth-child(1) { top: 14px; } .btn-menu i:nth-child(2) { top: 24px; }
 .btn-menu.abierto i:nth-child(1) { top: 19px; transform: rotate(45deg); }
 .btn-menu.abierto i:nth-child(2) { top: 19px; transform: rotate(-45deg); }
-.menu-movil { display: none; position: fixed; inset: 60px 0 0; background: var(--papel); z-index: 790; padding: 24px var(--pad); overflow-y: auto; }
+.menu-movil { display: none; position: fixed; inset: calc(60px + env(safe-area-inset-top)) 0 0; background: var(--papel); z-index: 790; padding: 24px var(--pad); overflow-y: auto; }
 .menu-movil.abierto { display: block; }
 .menu-movil a { display: flex; justify-content: space-between; align-items: baseline; text-decoration: none; font-stretch: 62%; font-weight: 800; font-size: 40px; text-transform: uppercase; line-height: 1.1; padding: 8px 0; border-bottom: 1px solid var(--linea); }
 .menu-movil a small { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--tinta-3); letter-spacing: 0.1em; }
@@ -297,6 +297,25 @@ table.tabla { width: 100%; border-collapse: collapse; min-width: 560px; }
 .carta.con-foto .carta-num { -webkit-text-stroke-color: rgba(242,237,228,0.35); }
 .carta.con-foto .carta-nombre span { color: var(--tinta); opacity: 0.8; }
 .carta.vacante .carta-nombre { color: var(--tinta-2); }
+
+/* Intro: el nombre entra de izquierda a derecha y sale pateado como una pelota */
+#intro { position: fixed; inset: 0; z-index: 10000; background: var(--papel); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.4s ease; cursor: pointer; }
+#intro.fuera { opacity: 0; pointer-events: none; }
+.intro-escena { position: relative; }
+.intro-txt { font-stretch: 62%; font-weight: 900; text-transform: uppercase; line-height: 0.84; font-size: clamp(66px, 19vw, 168px); color: var(--tinta); transform-origin: 20% 80%; animation: intro-entra 0.8s cubic-bezier(.16,1,.3,1) both, intro-patada 0.75s cubic-bezier(.3,.6,.45,1) 1.42s forwards; }
+.intro-txt span { display: block; }
+.intro-txt em { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 0.42em; text-transform: none; margin-left: 0.08em; color: var(--atardecer); display: inline-block; animation: intro-jr 0.4s cubic-bezier(.34,1.56,.64,1) 0.6s both; }
+.intro-linea { position: absolute; left: 0; bottom: -14px; height: 3px; width: 100%; background: var(--atardecer); transform-origin: left; animation: intro-linea 0.55s cubic-bezier(.65,0,.35,1) 0.7s both, intro-sale 0.2s ease 1.42s forwards; }
+.intro-golpe { position: absolute; left: 6%; bottom: -6px; width: 0; height: 0; }
+.intro-golpe i { position: absolute; left: 0; top: 0; width: 26px; height: 3px; background: var(--estrella); border-radius: 2px; transform-origin: 0 50%; opacity: 0; animation: intro-golpe 0.36s ease-out 1.4s forwards; }
+.intro-golpe i:nth-child(1) { --r: 200deg; } .intro-golpe i:nth-child(2) { --r: 160deg; } .intro-golpe i:nth-child(3) { --r: 120deg; }
+.intro-golpe i:nth-child(4) { --r: 235deg; } .intro-golpe i:nth-child(5) { --r: 95deg; }
+@keyframes intro-entra { from { transform: translateX(-120vw) skewX(-14deg); } 70% { transform: translateX(2.5vw) skewX(3deg); } to { transform: none; } }
+@keyframes intro-jr { from { transform: scale(0) rotate(-20deg); } to { transform: none; } }
+@keyframes intro-linea { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes intro-sale { to { opacity: 0; } }
+@keyframes intro-patada { 0% { transform: none; } 14% { transform: translateX(-1.5vw) scale(1.06, 0.9) rotate(-3deg); } 100% { transform: translate(150vw, -75vh) rotate(70deg) scale(0.5); } }
+@keyframes intro-golpe { 0% { opacity: 1; transform: rotate(var(--r)) translateX(4px) scaleX(0.2); } 100% { opacity: 0; transform: rotate(var(--r)) translateX(30px) scaleX(1); } }
 
 /* Ficha */
 .ficha { position: fixed; inset: 0; z-index: 950; background: rgba(0,0,0,0.7); display: none; align-items: flex-end; justify-content: center; }
@@ -581,6 +600,20 @@ table.hist { width: 100%; border-collapse: collapse; }
   .f-num { font-size: 88px; }
   .cuenta div { min-width: 0; flex: 1; }
   /* Celular más compacto */
+  .hero-meta, .hero-prox { display: none; }
+  .hero-txt { padding-bottom: 20px; }
+  .entrada-main, .entrada-stub { padding: 20px; }
+  .entrada-stub { gap: 12px; }
+  .e-eq { font-size: 34px; }
+  .e-vs { font-size: 20px; margin: 2px 0 0; }
+  .cuenta { margin-top: 16px; }
+  .cuenta div { padding: 6px 4px; }
+  .cuenta b { font-size: 21px; }
+  .e-fecha { font-size: 18px; }
+  .e-dato b { font-size: 18px; }
+  .acciones { gap: 6px; margin-top: 12px; }
+  .acciones .btn { flex: 1 1 calc(50% - 3px); padding: 9px 6px; font-size: 10px; gap: 6px; letter-spacing: 0.04em; }
+  .acciones .btn svg { width: 14px; height: 14px; }
   .colapsable:not(.abierta) .extra-movil { display: none; }
   .colapsable:not(.abierta) + .ver-mas { display: flex; }
   .seccion { padding: 44px 0; }
@@ -599,6 +632,24 @@ table.hist { width: 100%; border-collapse: collapse; }
 </style>
 </head>
 <body>
+<div id="intro" aria-hidden="true">
+  <div class="intro-escena">
+    <div class="intro-txt"><span>Sporting</span><span>Zorzal<em>Jr.</em></span></div>
+    <div class="intro-linea"></div>
+    <div class="intro-golpe"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+</div>
+<script>
+// Intro una vez por sesión; tocar para saltarla
+(function () {
+  var el = document.getElementById('intro'), saltar = false;
+  try { saltar = sessionStorage.getItem('zorzal_intro') || matchMedia('(prefers-reduced-motion: reduce)').matches; sessionStorage.setItem('zorzal_intro', '1'); } catch (e) {}
+  if (saltar) { el.remove(); return; }
+  var fin = function () { if (!el.parentNode || el.classList.contains('fuera')) return; el.classList.add('fuera'); setTimeout(function () { el.remove(); }, 420); };
+  el.addEventListener('click', fin);
+  setTimeout(fin, 2000);
+})();
+</script>
 
 <header class="nav">
   <div class="wrap nav-in">
@@ -665,7 +716,7 @@ table.hist { width: 100%; border-collapse: collapse; }
       <div class="pres-cont">
         <div>
           <p class="kicker">¿Jugás?</p>
-          <div class="pres-num" id="pres-num">0<small>/11</small></div>
+          <div class="pres-num" id="pres-num">0<small>/14</small></div>
         </div>
         <div>
           <div class="pres-barra"><i id="pres-barra"></i></div>
@@ -1098,6 +1149,7 @@ const jugadores = [
 ];
 // foto: archivo dentro de /jugadores · fotoPos: encuadre opcional (object-position)
 const PLANTEL = jugadores.filter(j => !j.baja);
+const CONVOCADOS = 14; // 11 + suplentes
 const ARQUERO_VACANTE = true; // puesto de arquero titular vacante: se rota con invitados
 const capitan = 'Estanislao Stalgis';
 const subcapitan = 'Iñaki Aduriz';
@@ -1695,9 +1747,10 @@ function renderNombres() {
   $('nombres').querySelectorAll('.nombre').forEach(b => b.addEventListener('click', () => elegirNombre(b.dataset.n)));
   const si = PRES.si.length, no = PRES.no.length;
   const faltan = roster.filter(n => !estadoDe(n));
-  $('pres-num').innerHTML = si + '<small>/11</small>';
-  $('pres-barra').style.width = Math.min(100, si / 11 * 100) + '%';
-  $('pres-estado').textContent = si >= 11 ? '¡Equipo completo! Somos ' + si + '.' : 'Faltan ' + (11 - si) + ' para llegar a 11.';
+  // convocatoria: 11 titulares + suplentes, hasta 14
+  $('pres-num').innerHTML = si + '<small>/' + CONVOCADOS + '</small>';
+  $('pres-barra').style.width = Math.min(100, si / CONVOCADOS * 100) + '%';
+  $('pres-estado').textContent = si >= CONVOCADOS ? '¡Lista completa! Somos ' + si + '.' : si >= 11 ? 'Ya somos ' + si + '. Hay lugar para ' + (CONVOCADOS - si) + ' suplente' + (CONVOCADOS - si > 1 ? 's' : '') + ' más.' : 'Faltan ' + (11 - si) + ' para llegar a 11.';
   $('c-si').textContent = si; $('c-no').textContent = no; $('c-falta').textContent = faltan.length;
 }
 function elegirNombre(n) {
