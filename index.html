@@ -640,10 +640,11 @@ table.hist { width: 100%; border-collapse: collapse; }
   </div>
 </div>
 <script>
-// Intro una vez por sesión; tocar para saltarla
+// Intro una vez por sesión; tocar para saltarla · ?intro la muestra siempre
 (function () {
   var el = document.getElementById('intro'), saltar = false;
   try { saltar = sessionStorage.getItem('zorzal_intro') || matchMedia('(prefers-reduced-motion: reduce)').matches; sessionStorage.setItem('zorzal_intro', '1'); } catch (e) {}
+  if (/[?&]intro/.test(location.search)) saltar = false; // ?intro la fuerza (para probar)
   if (saltar) { el.remove(); return; }
   var fin = function () { if (!el.parentNode || el.classList.contains('fuera')) return; el.classList.add('fuera'); setTimeout(function () { el.remove(); }, 420); };
   el.addEventListener('click', fin);
