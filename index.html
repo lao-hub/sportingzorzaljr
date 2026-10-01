@@ -579,6 +579,18 @@ table.hist { width: 100%; border-collapse: collapse; }
   .num { padding: 14px 10px 12px; }
   .f-num { font-size: 88px; }
   .cuenta div { min-width: 0; flex: 1; }
+  /* Celular más compacto */
+  .seccion { padding: 44px 0; }
+  .nombres { grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .nombre { min-height: 40px; padding: 7px 8px; gap: 6px; }
+  .nombre .n-num { display: none; }
+  .nombre .n-txt { font-size: 12.5px; }
+  .nombre .n-st { font-size: 9px; }
+  .carta { min-height: 112px; }
+  .carta.con-foto { min-height: 0; aspect-ratio: 1; }
+  .carta-nombre { font-size: 19px; }
+  .hom.h-mitad, .hom.h-tercio { grid-column: span 3; aspect-ratio: 4 / 5; }
+  .galeria { grid-auto-rows: 130px; }
 }
 @media (max-width: 380px) { .numeros { grid-template-columns: repeat(2, 1fr); } .num:nth-child(3n) { border-right: 1px solid var(--linea); } .num:nth-child(2n) { border-right: none; } .num { border-bottom: 1px solid var(--linea); } }
 </style>
@@ -587,7 +599,7 @@ table.hist { width: 100%; border-collapse: collapse; }
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a href="#inicio" class="nav-marca"><img src="/icon-192.png" alt="Escudo Sporting Zorzal" width="36" height="36"><span>Sporting<br>Zorzal Jr</span></a>
+    <a href="#inicio" class="nav-marca"><img src="/escudo.png" alt="Escudo Sporting Zorzal" width="36" height="36"><span>Sporting<br>Zorzal Jr</span></a>
     <ul class="nav-links">
       <li><a href="#partido">Partido</a></li>
       <li><a href="#figura">Figura</a></li>
@@ -909,7 +921,7 @@ table.hist { width: 100%; border-collapse: collapse; }
       </div>
     </div>
     <div class="pie-bottom">
-      <span><img src="/icon-192.png" alt="">Sporting Zorzal Jr · Escobar · Desde 1991</span>
+      <span><img src="/escudo.png" alt="">Sporting Zorzal Jr · Escobar · Desde 1991</span>
       <span>Fútbol amateur, pasión profesional · © 2026</span>
     </div>
   </div>
@@ -1061,12 +1073,12 @@ const jugadores = [
   { nombre:'Franco Iorianni',    numero:9,  posicion:'Delantero',     gAp:9, gCl:4, amaCl:0, mejCl:2, foto:'iorianni.jpg', fotoPos:'60% 45%' },
   { nombre:'Matias Aniduzzi',    numero:10, posicion:'Extremo',       gAp:1, gCl:0, amaCl:0 },
   { nombre:'Segundo Aduriz',     numero:11, posicion:'Mediocampista', gAp:1, gCl:0, amaCl:0, foto:'segundo-aduriz.jpg' },
-  { nombre:'Estanislao Stalgis', numero:14, posicion:'Defensor',      gAp:0, gCl:1, amaCl:0, foto:'stalgis.jpg' },
+  { nombre:'Estanislao Stalgis', numero:14, posicion:'Defensor',      gAp:0, gCl:0, amaCl:0, foto:'stalgis.jpg' },
   { nombre:'Gaston Lasarte',     numero:17, posicion:'Mediocampista', gAp:1, gCl:0, amaCl:1, foto:'lasarte.jpg' },
   { nombre:'Dylan Ocampo',       numero:18, posicion:'Extremo',       gAp:3, gCl:1, amaCl:0, foto:'ocampo.jpg', fotoPos:'50% 45%' },
   { nombre:'Pedro Muñoz',        numero:19, posicion:'Extremo',       gAp:6, gCl:0, amaCl:0, foto:'munoz.jpg', fotoPos:'50% 45%' },
-  { nombre:'Tomas Sampogna',     numero:21, posicion:'Delantero',     gAp:0, gCl:1, amaCl:0, nuevo:true },
-  { nombre:'Nicolas Hemgren',    numero:null, posicion:'Delantero',   gAp:0, gCl:1, amaCl:0 },
+  { nombre:'Tomas Sampogna',     numero:21, posicion:'Delantero',     gAp:0, gCl:2, amaCl:0, nuevo:true },
+  { nombre:'Nicolas Hemgren',    numero:22, posicion:'Delantero',     gAp:0, gCl:1, amaCl:0 },
   { nombre:'Mauro Moyano',       numero:22, posicion:'Mediocampista', gAp:0, gCl:0, amaCl:1, nuevo:true },
   // ── Ya no están (baja:true): no aparecen en el plantel, sus goles siguen contando ──
   { nombre:'Agustin Real',       numero:1,  posicion:'Arquero',       gAp:0, gCl:0, amaCl:0, baja:true },
