@@ -321,7 +321,6 @@ table.tabla { width: 100%; border-collapse: collapse; min-width: 560px; }
 .intro-golpe i { position: absolute; left: 0; top: 0; width: 26px; height: 3px; background: var(--estrella); border-radius: 2px; transform-origin: 0 50%; opacity: 0; animation: intro-golpe 0.36s ease-out 1.4s forwards; }
 .intro-golpe i:nth-child(1) { --r: 200deg; } .intro-golpe i:nth-child(2) { --r: 160deg; } .intro-golpe i:nth-child(3) { --r: 120deg; }
 .intro-golpe i:nth-child(4) { --r: 235deg; } .intro-golpe i:nth-child(5) { --r: 95deg; }
-@media (prefers-reduced-motion: reduce) { .intro-txt, .intro-txt em, .intro-linea, .intro-golpe i { animation: none; } .intro-golpe { display: none; } }
 @keyframes intro-entra { from { transform: translateX(-120vw) skewX(-14deg); } 70% { transform: translateX(2.5vw) skewX(3deg); } to { transform: none; } }
 @keyframes intro-jr { from { transform: scale(0) rotate(-20deg); } to { transform: none; } }
 @keyframes intro-linea { from { transform: scaleX(0); } to { transform: scaleX(1); } }
