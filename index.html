@@ -200,6 +200,10 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .input { width: 100%; background: transparent; border: 1.5px solid var(--linea-fuerte); padding: 12px 14px; font: inherit; font-size: 15px; color: var(--tinta); outline: none; border-radius: 0; }
 .input:focus { border-color: var(--atardecer); }
 .fig-opciones { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; margin: 12px 0; }
+.figura.fig-cerrada .fig-votante, .figura.fig-cerrada .fig-reglas, .figura.fig-cerrada #btn-votar { display: none; }
+.figura.fig-cerrada .fig-partido { margin-bottom: 4px; }
+.figura.fig-cerrada.sin-votos .fig-res { display: none; }
+.figura.fig-cerrada.sin-votos .historial { margin-top: 0; }
 .fig-op { text-align: left; border: 1.5px solid var(--linea); padding: 10px 12px; font-weight: 600; font-size: 14px; background: rgba(242,237,228,0.035); }
 .fig-op:hover { border-color: var(--tinta); }
 .fig-op.sel { background: var(--estrella); border-color: var(--estrella); color: var(--negro); }
@@ -306,6 +310,8 @@ table.tabla { width: 100%; border-collapse: collapse; min-width: 560px; }
 /* Intro: el nombre entra de izquierda a derecha y sale pateado como una pelota */
 #intro { position: fixed; inset: 0; z-index: 10000; background: var(--papel); display: flex; align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.4s ease; cursor: pointer; }
 #intro.fuera { opacity: 0; pointer-events: none; }
+#intro.espera .intro-escena { visibility: hidden; }
+#intro.espera *, #intro.espera *::before { animation-play-state: paused !important; }
 .intro-escena { position: relative; }
 .intro-txt { font-stretch: 62%; font-weight: 900; text-transform: uppercase; line-height: 0.84; font-size: clamp(66px, 19vw, 168px); color: var(--tinta); transform-origin: 20% 80%; animation: intro-entra 0.8s cubic-bezier(.16,1,.3,1) both, intro-patada 0.75s cubic-bezier(.3,.6,.45,1) 1.42s forwards; }
 .intro-txt span { display: block; }
@@ -666,7 +672,11 @@ table.hist { width: 100%; border-collapse: collapse; }
   if (saltar) { el.remove(); return; }
   var fin = function () { if (!el.parentNode || el.classList.contains('fuera')) return; el.classList.add('fuera'); setTimeout(function () { el.remove(); }, 420); };
   el.addEventListener('click', fin);
-  setTimeout(fin, 2000);
+  // arranca recién con las tipografías cargadas (si no, en el celu se ve con otra letra y salta)
+  el.classList.add('espera');
+  var arranco = false, go = function () { if (arranco) return; arranco = true; el.classList.remove('espera'); setTimeout(fin, 2000); };
+  try { Promise.all([document.fonts.load('900 80px Archivo'), document.fonts.load('italic 40px "Instrument Serif"')]).then(go, go); } catch (e) { go(); }
+  setTimeout(go, 1200);
 })();
 </script>
 
@@ -772,8 +782,8 @@ table.hist { width: 100%; border-collapse: collapse; }
     <div class="figura">
       <div>
         <span class="fig-partido" id="fig-partido"></span>
-        <p class="bajada">Se vota desde 2 horas después del partido y durante 4 días. Un voto por persona.</p>
-        <div style="margin-top:18px;">
+        <p class="bajada fig-reglas">Se vota desde 2 horas después del partido y durante 4 días. Un voto por persona.</p>
+        <div class="fig-votante" style="margin-top:18px;">
           <select id="votante-nombre" class="select" onchange="toggleOtro(this,'votante-otro')"></select>
           <input type="text" id="votante-otro" class="input" placeholder="Tu nombre" style="display:none;margin-top:6px;" maxlength="40">
         </div>
@@ -782,8 +792,8 @@ table.hist { width: 100%; border-collapse: collapse; }
         <p class="fig-estado" id="voto-msg"></p>
       </div>
       <div>
-        <p class="sub">En vivo · <span id="total-votos">0</span> votos</p>
-        <div class="barras" id="figura-resultados"></div>
+        <p class="sub fig-res"><span id="fig-en-vivo">En vivo</span> · <span id="total-votos">0</span> votos</p>
+        <div class="barras fig-res" id="figura-resultados"></div>
         <div class="historial">
           <p class="sub">Última figura</p>
           <div id="historial-figuras"></div>
@@ -1874,7 +1884,9 @@ function renderOpciones(activa) {
 function renderVotos() {
   const e = Object.entries(votos), total = e.reduce((a, [, v]) => a + v, 0);
   $('total-votos').textContent = total;
-  const s = e.sort((a, b) => b[1] - a[1]).slice(0, 8);
+  document.querySelector('.figura').classList.toggle('sin-votos', !total);
+  const abierta = new Date() >= FIGURA_DESDE && new Date() <= FIGURA_HASTA;
+  const s = e.sort((a, b) => b[1] - a[1]).slice(0, abierta ? 8 : 3);
   $('figura-resultados').innerHTML = s.length ? s.map(([n, v], i) => { const pct = total ? Math.round(v / total * 100) : 0;
     return '<div><div class="barra-top"><span>' + esc(n) + '</span><small>' + v + ' · ' + pct + '%</small></div><div class="barra' + (i === 0 ? ' lider' : '') + '"><i style="width:' + pct + '%"></i></div></div>'; }).join('')
     : '<p class="vacio">Todavía no hay votos.</p>';
@@ -1889,6 +1901,11 @@ function estadoFigura() {
   else if (!activa) { const d = FIGURA_DESDE - ahora, h = Math.floor(d / 36e5), m = Math.floor(d % 36e5 / 6e4); msg.textContent = 'La votación abre en ' + (h ? h + ' h ' : '') + m + ' min.'; }
   else if (!msg.dataset.keep) msg.textContent = 'Elegí a uno y votá.';
   renderOpciones(activa);
+  // sin votación abierta (o ya votaste): solo resultado y estado
+  document.querySelector('.figura').classList.toggle('fig-cerrada', !activa || !!miVoto);
+  $('fig-en-vivo').textContent = activa ? 'En vivo' : 'Resultado';
+  if (estadoFigura.ultimo !== undefined && estadoFigura.ultimo !== activa) renderVotos(); // al abrir/cerrar, cambia cuántos se muestran
+  estadoFigura.ultimo = activa;
 }
 function emitirVoto() {
   const sel = $('votante-nombre'), votante = sel.value === '__otro' ? $('votante-otro').value.trim() : sel.value, msg = $('voto-msg');
