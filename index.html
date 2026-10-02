@@ -421,6 +421,19 @@ table.hist { width: 100%; border-collapse: collapse; }
 .op p { font-size: 16px; }
 
 /* Club */
+.palm-cont { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid var(--tinta); border-bottom: 1.5px solid var(--tinta); margin-bottom: clamp(20px, 3vw, 32px); }
+.palm-cont div { padding: 18px 14px 16px; border-right: 1px solid var(--linea); }
+.palm-cont div:last-child { border-right: none; }
+.palm-cont b { display: block; font-stretch: 62%; font-weight: 800; font-size: clamp(48px, 7vw, 84px); line-height: 0.85; }
+.palm-cont div:first-child b { color: var(--estrella); }
+.palm-cont span { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tinta-2); }
+.palm-row { display: grid; grid-template-columns: 56px 150px 1fr; gap: 6px 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--linea); }
+.palm-anio { font-family: var(--mono); font-size: 12px; color: var(--tinta-2); }
+.palm-tipo { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tinta-2); }
+.palm-row.campeon .palm-tipo { color: var(--estrella); font-weight: 600; }
+.palm-row.campeon .palm-det b { color: var(--estrella); }
+.palm-det b { font-weight: 700; }
+.palm-det small { display: block; font-family: var(--mono); font-size: 11px; color: var(--tinta-3); margin-top: 2px; }
 .club { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(28px, 6vw, 80px); }
 .club-txt p { font-size: clamp(18px, 2vw, 22px); line-height: 1.45; margin-bottom: 16px; }
 .club-txt p strong { background: linear-gradient(transparent 68%, rgba(201,168,76,0.4) 68%); font-weight: 600; }
@@ -628,6 +641,10 @@ table.hist { width: 100%; border-collapse: collapse; }
   .carta-nombre { font-size: 19px; }
   .hom.h-mitad, .hom.h-tercio { grid-column: span 3; aspect-ratio: 4 / 5; }
   .galeria { grid-auto-rows: 130px; }
+  .palm-row { grid-template-columns: 44px 1fr; }
+  .palm-det { grid-column: 2; font-size: 15px; }
+  .palm-cont div { padding: 14px 10px 12px; }
+  .palm-cont b { font-size: 44px; }
 }
 @media (max-width: 380px) { .numeros { grid-template-columns: repeat(2, 1fr); } .num:nth-child(3n) { border-right: 1px solid var(--linea); } .num:nth-child(2n) { border-right: none; } .num { border-bottom: 1px solid var(--linea); } }
 </style>
@@ -684,6 +701,7 @@ table.hist { width: 100%; border-collapse: collapse; }
   <a href="#cronicas">Crónicas</a>
   <a href="#opiniones">Opiniones</a>
   <a href="#club">El club</a>
+  <a href="#palmares">Palmarés</a>
   <a href="#homenajes">Homenajes</a>
 </nav>
 
@@ -928,6 +946,16 @@ table.hist { width: 100%; border-collapse: collapse; }
       <div><b>Gonzalo Batista</b><span>Médico</span></div>
       <div><b style="color:var(--tinta-3)">Director técnico</b><span>Puesto vacante · se aceptan CVs</span></div>
     </div>
+  </div>
+</section>
+
+<!-- PALMARÉS -->
+<section class="seccion" id="palmares">
+  <div class="wrap">
+    <p class="kicker">Palmarés</p>
+    <h2 class="titulo">Lo que <em>ganamos</em></h2>
+    <div class="palm-cont" id="palm-cont"></div>
+    <div id="palm-lista"></div>
   </div>
 </section>
 
@@ -1234,10 +1262,10 @@ function resumenTorneo(torneo) {
 }
 </script>
 <script>
-// Estadísticas históricas del club (sin 2026)
+// Estadísticas históricas del club (sin 2026) · incluye goles de NorthChamp Clausura 2019: Balbo 2, Iorianni 2, Batista 1, Iñaki 1
 const historico = [
     { nombre: 'Segundo Aduriz', goles: 7, ama: 8, roj: 0 },
-    { nombre: 'Iñaki Aduriz', goles: 13, ama: 18, roj: 3 },
+    { nombre: 'Iñaki Aduriz', goles: 14, ama: 18, roj: 3 },
     { nombre: 'Andres Aduriz', goles: 0, ama: 0, roj: 0 },
     { nombre: 'Agustin Alsina', goles: 0, ama: 0, roj: 0 },
     { nombre: 'Aaron Ambrosi', goles: 0, ama: 0, roj: 0 },
@@ -1245,10 +1273,9 @@ const historico = [
     { nombre: 'Cristian Areco', goles: 0, ama: 0, roj: 0 },
     { nombre: 'Lautaro Ezequiel Azezian', goles: 0, ama: 1, roj: 0 },
     { nombre: 'Franco Baez', goles: 0, ama: 0, roj: 0 },
-    { nombre: 'Santiago Balbo', goles: 3, ama: 0, roj: 0 },
-    { nombre: 'Santiago Balbo', goles: 11, ama: 8, roj: 3 },
+    { nombre: 'Santiago Balbo', goles: 16, ama: 8, roj: 3 },
     { nombre: 'Agustin Baneli', goles: 0, ama: 0, roj: 0 },
-    { nombre: 'Gonzalo Batista', goles: 5, ama: 19, roj: 1 },
+    { nombre: 'Gonzalo Batista', goles: 6, ama: 19, roj: 1 },
     { nombre: 'Santiago Begnes', goles: 0, ama: 1, roj: 0 },
     { nombre: 'Mauro Biagetti', goles: 0, ama: 0, roj: 0 },
     { nombre: 'Francisco Bru', goles: 0, ama: 0, roj: 0 },
@@ -1290,7 +1317,7 @@ const historico = [
     { nombre: 'Francisco Gonzales', goles: 2, ama: 2, roj: 0 },
     { nombre: 'Nicolas Hemgren', goles: 0, ama: 0, roj: 0 },
     { nombre: 'Santiago Iglesias', goles: 0, ama: 0, roj: 0 },
-    { nombre: 'Franco Iorianni', goles: 14, ama: 4, roj: 1 },
+    { nombre: 'Franco Iorianni', goles: 16, ama: 4, roj: 1 },
     { nombre: 'Ramiro Izetta', goles: 0, ama: 1, roj: 0 },
     { nombre: 'Nicolas Juarez', goles: 3, ama: 1, roj: 0 },
     { nombre: 'Gaston Lasarte', goles: 2, ama: 2, roj: 2 },
@@ -1593,6 +1620,25 @@ function renderHist() {
 
 // ─── Galería ───
 let lbIndex = -1;
+// Palmarés · tipo: 'campeon' | 'subcampeon' | 'fairplay' | 'individual'
+const PALMARES = [
+  { anio: 2024, tipo: 'fairplay',   torneo: 'NorthChamp · Plata A · Clausura 2024' },
+  { anio: 2022, tipo: 'campeon',    torneo: 'CI Fútbol 2022' },
+  { anio: 2022, tipo: 'subcampeon', torneo: 'NorthChamp · Plata A · Clausura 2022' },
+  { anio: 2022, tipo: 'subcampeon', torneo: 'NorthChamp · Plata B · Apertura 2022' },
+  { anio: 2022, tipo: 'fairplay',   torneo: 'NorthChamp · Plata B · Apertura 2022' },
+  { anio: 2022, tipo: 'individual', titulo: 'Dylan Ocampo',   premio: 'Mejor jugador', torneo: 'NorthChamp · Plata A · Clausura 2022' },
+  { anio: 2022, tipo: 'individual', titulo: 'Nicolás Ortiz y Dylan Ocampo', premio: 'Goleadores', torneo: 'NorthChamp · Plata A · Clausura 2022' },
+  { anio: 2019, tipo: 'fairplay',   torneo: 'NorthChamp · Plata B · Clausura 2019' },
+];
+function renderPalmares() {
+  const n = t => PALMARES.filter(p => p.tipo === t).length;
+  const cont = [[n('campeon'), n('campeon') === 1 ? 'Título' : 'Títulos'], [n('subcampeon'), 'Subcampeonatos'], [n('fairplay'), 'Fair Play']];
+  $('palm-cont').innerHTML = cont.map(c => '<div><b>' + c[0] + '</b><span>' + c[1] + '</span></div>').join('');
+  const TIPO = { campeon: 'Campeón', subcampeon: 'Subcampeón', fairplay: 'Fair Play' };
+  $('palm-lista').innerHTML = PALMARES.map(p => '<div class="palm-row ' + p.tipo + '"><span class="palm-anio">' + p.anio + '</span><span class="palm-tipo">' + esc(p.premio || TIPO[p.tipo]) + '</span>'
+    + '<span class="palm-det"><b>' + esc(p.titulo || p.torneo) + '</b>' + (p.titulo ? '<small>' + esc(p.torneo) + '</small>' : '') + '</span></div>').join('');
+}
 function renderGaleria() {
   const cls = ['g1', '', 'g2', '', '', '', '', ''];
   $('galeria-grid').innerHTML = GALERIA.map((g, i) => '<figure class="gal rv ' + (cls[i] || '') + (i >= 4 ? ' extra-movil' : '') + '" onclick="abrirGaleria(' + i + ')"><img src="' + g.src + '" alt="' + esc(g.cap) + '" loading="lazy"><figcaption>' + esc(g.cap) + '</figcaption></figure>').join('');
@@ -1691,7 +1737,7 @@ $('cronicas-lista').innerHTML = CRONICAS.map(c => '<a class="cronica rv" href="'
   };
 })();
 
-renderEntrada(); renderTabla(); renderFixture(); renderPlantel(); renderStats(); renderGaleria();
+renderEntrada(); renderTabla(); renderFixture(); renderPlantel(); renderStats(); renderGaleria(); renderPalmares();
 
 // ─── Dock activo + aparición ───
 (function () {
