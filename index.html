@@ -162,12 +162,13 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .pres-estado { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--tinta-2); }
 .pres-leyenda { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinta-2); }
 .pres-leyenda i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
-.nombres { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
-.nombre { text-align: left; border: 1.5px solid var(--linea); background: rgba(242,237,228,0.035); padding: 10px 12px; display: flex; align-items: center; gap: 10px; transition: border-color 0.15s, background 0.15s, transform 0.1s; min-height: 48px; }
+.nombres { display: flex; flex-wrap: wrap; gap: 6px; }
+.nombre { border: 1.5px solid var(--linea); border-radius: 999px; background: rgba(242,237,228,0.035); padding: 6px 13px; display: inline-flex; align-items: center; gap: 6px; transition: border-color 0.15s, background 0.15s, transform 0.1s; min-height: 34px; }
 .nombre:hover { border-color: var(--tinta); }
 .nombre .n-num { font-family: var(--mono); font-size: 11px; color: var(--tinta-3); min-width: 18px; }
-.nombre .n-txt { font-weight: 600; font-size: 14.5px; line-height: 1.15; flex: 1; }
-.nombre .n-st { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+.nombre .n-txt { font-weight: 600; font-size: 14px; line-height: 1.1; white-space: nowrap; }
+.nombre .n-st { font-size: 12px; font-weight: 700; line-height: 1; }
+.nombre .n-st:empty { display: none; }
 .nombre.si { background: rgba(30,138,76,0.1); border-color: rgba(30,138,76,0.45); }
 .nombre.si .n-st { color: var(--gana); }
 .nombre.no { background: rgba(200,55,45,0.07); border-color: rgba(200,55,45,0.35); }
@@ -214,6 +215,10 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .hist-row .h-f { font-family: var(--mono); font-size: 11.5px; color: var(--tinta-2); flex: 0 0 180px; }
 .hist-row .h-n { font-weight: 700; flex: 1; }
 .hist-row .h-v { font-family: var(--mono); font-size: 11.5px; color: var(--tinta-3); }
+.hist-mas summary { cursor: pointer; list-style: none; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 0; color: var(--tinta-2); }
+.hist-mas summary::-webkit-details-marker { display: none; }
+.hist-mas summary::after { content: ' +'; }
+.hist-mas[open] summary::after { content: ' –'; }
 .vacio { font-family: var(--mono); font-size: 12.5px; color: var(--tinta-3); }
 
 /* Números + tabla */
@@ -590,7 +595,7 @@ table.hist { width: 100%; border-collapse: collapse; }
   .fx-rival { font-size: 15.5px; }
   .e-datos { grid-template-columns: 1fr 1fr 1fr; }
   .acciones .btn { flex: 1 1 calc(50% - 4px); padding: 13px 8px; font-size: 11px; }
-  .nombres, .fig-opciones { grid-template-columns: repeat(2, 1fr); }
+  .fig-opciones { grid-template-columns: repeat(2, 1fr); }
   .cartas { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .carta { min-height: 132px; padding: 12px; }
   .carta-nombre { font-size: 21px; margin-top: 22px; }
@@ -618,11 +623,6 @@ table.hist { width: 100%; border-collapse: collapse; }
   .colapsable:not(.abierta) .extra-movil { display: none; }
   .colapsable:not(.abierta) + .ver-mas { display: flex; }
   .seccion { padding: 44px 0; }
-  .nombres { grid-template-columns: repeat(3, 1fr); gap: 5px; }
-  .nombre { min-height: 40px; padding: 7px 8px; gap: 6px; }
-  .nombre .n-num { display: none; }
-  .nombre .n-txt { font-size: 12.5px; }
-  .nombre .n-st { font-size: 9px; }
   .carta { min-height: 112px; }
   .carta.con-foto { min-height: 0; aspect-ratio: 1; }
   .carta-nombre { font-size: 19px; }
@@ -767,7 +767,7 @@ table.hist { width: 100%; border-collapse: collapse; }
         <p class="sub">En vivo · <span id="total-votos">0</span> votos</p>
         <div class="barras" id="figura-resultados"></div>
         <div class="historial">
-          <p class="sub">Historial de figuras</p>
+          <p class="sub">Última figura</p>
           <div id="historial-figuras"></div>
         </div>
       </div>
@@ -1427,7 +1427,6 @@ function renderEntrada() {
     + '<button class="btn" onclick="descargarICS()">' + ICO.dl + 'iPhone / Outlook</button>'
     + (maps ? '<a class="btn" href="' + maps + '" target="_blank" rel="noopener">' + ICO.pin + 'Cómo llegar</a>' : '')
     + '<button class="btn btn-wa" onclick="compartirWA(textoConvocatoria(PROXIMO))">' + ICO.wa + 'Mandar al grupo</button>';
-  if (s && s.como) $('llegar').innerHTML = '<details class="como-llegar"><summary>Indicaciones para llegar</summary><p>' + esc(s.como) + '</p></details>';
   tickCuenta(); setInterval(tickCuenta, 1000);
 }
 function tickCuenta() {
@@ -1741,11 +1740,14 @@ function estadoDe(nombre) {
 function renderNombres() {
   const roster = nombresPlantel();
   const extras = PRES.si.concat(PRES.no).filter(x => roster.map(normNombre).indexOf(normNombre(x)) < 0);
-  const numDe = n => { const j = PLANTEL.find(p => p.nombre === n); return j && j.numero != null ? j.numero : ''; };
-  $('nombres').innerHTML = roster.concat(extras).map(function (n) {
+  // nombre corto: apellido, o "Iñaki A." si el apellido se repite
+  const apes = {}; roster.forEach(n => { const a = nombrePila(n).ape; apes[a] = (apes[a] || 0) + 1; });
+  const corto = n => { if (roster.indexOf(n) < 0) return n; const x = nombrePila(n); return apes[x.ape] > 1 ? x.pila + ' ' + x.ape[0] + '.' : x.ape; };
+  const lista = roster.slice().sort((a, b) => corto(a).localeCompare(corto(b), 'es'));
+  $('nombres').innerHTML = lista.concat(extras).map(function (n) {
     const st = estadoDe(n), sel = presSel === n;
-    return '<button class="nombre' + (st ? ' ' + st : '') + (sel ? ' sel' : '') + '" data-n="' + esc(n) + '"><span class="n-num">' + numDe(n) + '</span><span class="n-txt">' + esc(n) + '</span><span class="n-st">' + (st === 'si' ? 'Va' : st === 'no' ? 'No' : '') + '</span></button>';
-  }).join('') + '<button class="nombre otro' + (presSel === '__otro' ? ' sel' : '') + '" data-n="__otro"><span class="n-num">+</span><span class="n-txt">Invitado / otro</span></button>';
+    return '<button class="nombre' + (st ? ' ' + st : '') + (sel ? ' sel' : '') + '" data-n="' + esc(n) + '" title="' + esc(n) + '"><span class="n-txt">' + esc(corto(n)) + '</span><span class="n-st">' + (st === 'si' ? '✓' : st === 'no' ? '✕' : '') + '</span></button>';
+  }).join('') + '<button class="nombre otro' + (presSel === '__otro' ? ' sel' : '') + '" data-n="__otro"><span class="n-txt">+ Invitado</span></button>';
   $('nombres').querySelectorAll('.nombre').forEach(b => b.addEventListener('click', () => elegirNombre(b.dataset.n)));
   const si = PRES.si.length, no = PRES.no.length;
   const faltan = roster.filter(n => !estadoDe(n));
@@ -1857,7 +1859,10 @@ function emitirVoto() {
 figuraRef.on('value', s => { votos = s.val() || {}; renderVotos(); });
 historialRef.once('value').then(function (s) {
   const e = Object.values(s.val() || {}).reverse();
-  $('historial-figuras').innerHTML = e.length ? e.map(h => '<div class="hist-row"><span class="h-f">' + esc(h.fecha) + '</span><span class="h-n">' + esc(h.figura) + '</span><span class="h-v">' + h.votos + ' votos</span></div>').join('') : '<p class="vacio">Se completa con cada partido.</p>';
+  const fila = h => '<div class="hist-row"><span class="h-f">' + esc(h.fecha) + '</span><span class="h-n">' + esc(h.figura) + '</span><span class="h-v">' + h.votos + ' votos</span></div>';
+  // se ve la última figura; las anteriores, con un toque
+  $('historial-figuras').innerHTML = !e.length ? '<p class="vacio">Se completa con cada partido.</p>' : fila(e[0])
+    + (e.length > 1 ? '<details class="hist-mas"><summary>Ver figuras anteriores (' + (e.length - 1) + ')</summary>' + e.slice(1).map(fila).join('') + '</details>' : '');
 });
 estadoFigura(); setInterval(estadoFigura, 30000);
 
