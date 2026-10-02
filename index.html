@@ -114,7 +114,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .ticker span b { font-weight: 600; }
 .ticker span::after { content: '✦'; margin-left: 44px; font-size: 10px; }
 @keyframes correr { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .ticker-in { animation: none; } html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 /* Próximo partido — la entrada */
 .entrada { display: grid; grid-template-columns: 1fr 300px; background: var(--bloque); color: var(--tinta); position: relative; border: 1px solid var(--linea); }
