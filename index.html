@@ -1112,31 +1112,32 @@ const PARTIDOS = [
     goles:['Pablo Gonzales'] },
   { torneo:'Clausura 2026', n:4,  fecha:'2026-09-26', hora:'10:00', cancha:'15', sede:'paraisos', local:ZORZAL, visitante:'Chascomús FC', gl:4, gv:0,
     goles:['Franco Iorianni','Franco Iorianni','Franco Iorianni','Nicolas Hemgren'] },
-  { torneo:'Clausura 2026', n:5,  fecha:'2026-10-03', libre:true },
-  { torneo:'Clausura 2026', n:6,  fecha:'2026-10-10', hora:'16:00', cancha:'5',  sede:'paraisos', local:ZORZAL, visitante:'Piro FC', gl:null, gv:null },
-  { torneo:'Clausura 2026', n:7,  fecha:'2026-10-17', hora:'16:00', cancha:'13', sede:'paraisos', local:ZORZAL, visitante:'La Saeta', gl:null, gv:null },
+  { torneo:'Clausura 2026', n:7,  fecha:'2026-10-17', hora:'16:00', cancha:'16', sede:'paraisos', local:ZORZAL, visitante:'La Saeta', gl:0, gv:1 },
   { torneo:'Clausura 2026', n:8,  fecha:'2026-10-24', hora:'16:00', cancha:'9',  sede:'paraisos', local:ZORZAL, visitante:'Toco y No Voy', gl:null, gv:null },
   { torneo:'Clausura 2026', n:9,  fecha:'2026-10-31', hora:'14:00', cancha:'11', sede:'paraisos', local:ZORZAL, visitante:'La Obsesión', gl:null, gv:null },
   { torneo:'Clausura 2026', n:10, fecha:'2026-11-07', hora:'14:00', cancha:'2',  sede:'paraisos', local:ZORZAL, visitante:'Cheltri', gl:null, gv:null },
-  { torneo:'Clausura 2026', n:11, fecha:'2026-11-14', hora:'12:00', cancha:'4',  sede:'paraisos', local:ZORZAL, visitante:'Deportivo Algarrobo', gl:null, gv:null },
+  { torneo:'Clausura 2026', n:11, fecha:'2026-11-14', hora:'10:00', cancha:'14', sede:'paraisos', local:ZORZAL, visitante:'Deportivo Algarrobo', gl:null, gv:null },
+  // fechas 6 y 5 reprogramadas por NorthChamp al final del torneo
+  { torneo:'Clausura 2026', n:6,  fecha:'2026-11-21', hora:'16:00', cancha:'13', sede:'paraisos', local:ZORZAL, visitante:'Piro FC', gl:null, gv:null },
+  { torneo:'Clausura 2026', n:5,  fecha:'2026-11-28', libre:true },
 ];
 
 // Tabla de posiciones — copiar de NorthChamp
 const TABLAS = {
   'Clausura 2026': {
-    nota: 'Actualizada tras la fecha 4 · fuente: NorthChamp',
+    nota: 'Actualizada tras la fecha 7 · fuente: NorthChamp',
     filas: [
-      [ZORZAL,                4,3,1,0, 11,4, 10],
+      ['Cheltri',             4,4,0,0, 15,7, 12],
+      [ZORZAL,                5,3,1,1, 11,5, 10],
+      ['La Saeta',            5,3,1,1,  9,3, 10],
       ['La Obsesión',         4,3,0,1, 11,6,  9],
-      ['Cheltri',             3,3,0,0,  9,5,  9],
-      ['La Saeta',            4,2,1,1,  8,3,  7],
-      ['Piro FC',             3,2,0,1,  7,3,  6],
-      ['Popeye',              4,1,1,2,  4,4,  4],
-      ['Deportivo Algarrobo', 3,1,1,1,  4,5,  4],
-      ['Boreal',              4,0,3,1,  4,5,  3],
-      ['Toco y No Voy',       4,1,0,3,  2,8,  3],
-      ['Alumni FC',           4,0,1,3,  3,10, 1],
-      ['Chascomús FC',        3,0,0,3,  1,11, 0],
+      ['Boreal',              5,1,3,1,  8,5,  6],
+      ['Piro FC',             4,2,0,2,  7,7,  6],
+      ['Deportivo Algarrobo', 4,1,2,1,  6,7,  5],
+      ['Popeye',              5,1,1,3,  6,10, 4],
+      ['Toco y No Voy',       5,1,1,3,  3,9,  4],
+      ['Alumni FC',           5,0,2,3,  4,11, 2],
+      ['Chascomús FC',        4,0,1,3,  3,13, 1],
     ]
   },
   'Apertura 2026': {
